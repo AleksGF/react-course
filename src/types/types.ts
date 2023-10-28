@@ -1,4 +1,4 @@
-import { FormEventHandler } from 'react';
+import type { FormEventHandler, ReactElement } from 'react';
 import { Person } from './apiTypes';
 
 export interface AppState {
@@ -7,6 +7,14 @@ export interface AppState {
   currentSearch: string | null;
   searchValue: string;
   itemsToShow: Person[];
+}
+
+export interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+export interface ErrorBoundaryProps {
+  fallback: ReactElement;
 }
 
 export interface InputFieldProps {
@@ -22,6 +30,10 @@ export interface ButtonProps {
 
 export interface SearchBarProps extends InputFieldProps {
   searchSubmitHandler: FormEventHandler<HTMLFormElement>;
+}
+
+export interface SearchBarState {
+  shouldErrorHappened: boolean;
 }
 
 export interface ContentFrameProps {

@@ -1,12 +1,17 @@
 import React from 'react';
 import InputField from '../common/InputField/InputField';
 import Button from '../common/Button/Button';
-import { SearchBarProps } from '../../types/types';
+import type { SearchBarProps, SearchBarState } from '../../types/types';
+import ComponentWithError from '../common/ComponentWithError/ComponentWithError';
 
 class SearchBar extends React.Component<
   React.PropsWithoutRef<SearchBarProps>,
-  undefined
+  SearchBarState
 > {
+  state: SearchBarState = {
+    shouldErrorHappened: false,
+  };
+
   render() {
     return (
       <>
@@ -21,9 +26,10 @@ class SearchBar extends React.Component<
           title={'Throw an Error'}
           classType={'ErrorButton'}
           clickHandler={() => {
-            throw new Error('Error: error was generated');
+            this.setState({ shouldErrorHappened: true });
           }}
         />
+        {this.state.shouldErrorHappened && <ComponentWithError />}
       </>
     );
   }

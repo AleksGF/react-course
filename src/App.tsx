@@ -1,10 +1,10 @@
 import React from 'react';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import SearchBar from './components/SearchBar/SearchBar';
 import ContentFrame from './components/ContentFrame/ContentFrame';
 import Loader from './components/common/Loader/Loader';
 import type { AppState } from './types/types';
 import './App.css';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 const fetchPeople = async (params: Record<string, string> = {}) => {
   const peopleApiUrl = new URL('https://swapi.dev/api/people/');
@@ -81,15 +81,23 @@ class App extends React.Component<undefined, AppState> {
 
   render() {
     return (
-      <ErrorBoundary>
-        {this.state.isLoading && <Loader />}
-        <SearchBar
-          searchValue={this.state.searchValue}
-          searchInputHandler={this.searchInputHandler.bind(this)}
-          searchSubmitHandler={this.searchSubmitHandler.bind(this)}
-        />
-        <ContentFrame people={this.state.itemsToShow} />
-      </ErrorBoundary>
+      <main>
+        <ErrorBoundary
+          fallback={
+            <p>
+              Error happened. Please, <a href={'/'}>reload the page</a>.
+            </p>
+          }
+        >
+          {this.state.isLoading && <Loader />}
+          <SearchBar
+            searchValue={this.state.searchValue}
+            searchInputHandler={this.searchInputHandler.bind(this)}
+            searchSubmitHandler={this.searchSubmitHandler.bind(this)}
+          />
+          <ContentFrame people={this.state.itemsToShow} />
+        </ErrorBoundary>
+      </main>
     );
   }
 }
