@@ -48,6 +48,7 @@ class App extends React.Component<undefined, AppState> {
         ...prevState,
         itemsToShow: data,
         currentSearch: search,
+        searchValue: search,
         isLoading: false,
       }));
     });
@@ -59,7 +60,9 @@ class App extends React.Component<undefined, AppState> {
 
   componentDidUpdate() {
     if (this.state.shouldUpdateData) {
-      this.updateData(this.state.searchValue);
+      const searchValue = this.state.searchValue.trim();
+      localStorage.setItem('rc_lastSearch', searchValue);
+      this.updateData(searchValue);
       this.setState((prevState) => ({ ...prevState, shouldUpdateData: false }));
     }
   }
@@ -67,7 +70,7 @@ class App extends React.Component<undefined, AppState> {
   searchInputHandler(e) {
     this.setState((prevState) => ({
       ...prevState,
-      searchValue: e.target.value,
+      searchValue: e.target.value.trimStart(),
     }));
   }
 
