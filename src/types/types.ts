@@ -24,7 +24,7 @@ export interface InputFieldProps {
 
 export interface ButtonProps {
   title: string;
-  classType: 'SubmitButton' | 'ErrorButton';
+  classType: 'submit-button' | 'error-button';
   clickHandler?: () => void;
 }
 

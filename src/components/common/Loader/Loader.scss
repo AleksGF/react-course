@@ -1,8 +1,19 @@
 .loader {
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(3px);
+  }
+
   &__container {
-    position: relative;
+    position: absolute;
+    top: calc(50% - 5rem);
+    left: calc(50% - 5rem);
     margin: auto;
-    width: 25%;
+    width: 10rem;
 
     &:before {
       content: '';
@@ -26,7 +37,9 @@
     .path {
       stroke-dasharray: 1, 200;
       stroke-dashoffset: 0;
-      animation: dash 2s ease-in-out infinite, color 5s ease-in-out infinite;
+      animation:
+        dash 2s ease-in-out infinite,
+        color 5s ease-in-out infinite;
       stroke-linecap: round;
     }
 

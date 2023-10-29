@@ -1,10 +1,10 @@
 import React from 'react';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import SearchBar from './components/SearchBar/SearchBar';
 import ContentFrame from './components/ContentFrame/ContentFrame';
 import Loader from './components/common/Loader/Loader';
 import type { AppState } from './types/types';
-import './App.css';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import './App.scss';
 
 const fetchPeople = async (params: Record<string, string> = {}) => {
   const peopleApiUrl = new URL('https://swapi.dev/api/people/');
@@ -81,10 +81,10 @@ class App extends React.Component<undefined, AppState> {
 
   render() {
     return (
-      <main>
+      <main className={'wrapper'}>
         <ErrorBoundary
           fallback={
-            <p>
+            <p className={'error-message'}>
               Error happened. Please, <a href={'/'}>reload the page</a>.
             </p>
           }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ButtonProps } from '../../../types/types';
+import './Button.scss';
 
 class Button extends React.Component<
   React.PropsWithoutRef<ButtonProps>,

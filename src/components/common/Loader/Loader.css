@@ -1,7 +1,17 @@
+.loader__wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  backdrop-filter: blur(3px);
+}
 .loader__container {
-  position: relative;
+  position: absolute;
+  top: calc(50% - 5rem);
+  left: calc(50% - 5rem);
   margin: auto;
-  width: 25%;
+  width: 10rem;
 }
 .loader__container:before {
   content: "";
