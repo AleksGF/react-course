@@ -1,20 +1,17 @@
-import React from 'react';
-import { InputFieldProps } from '../../../types/types';
+import React, { type FC } from 'react';
+import type { InputFieldProps } from '../../../types/types';
 
-class InputField extends React.Component<
-  React.PropsWithoutRef<InputFieldProps>,
-  undefined
-> {
-  render() {
-    return (
-      <input
-        type={'text'}
-        value={this.props.searchValue}
-        onInput={this.props.searchInputHandler}
-        name={'input-field'}
-      />
-    );
-  }
-}
+const InputField: FC<InputFieldProps> = (props) => {
+  const { searchValue, searchInputHandler } = props;
+
+  return (
+    <input
+      type={'text'}
+      value={searchValue}
+      onInput={searchInputHandler}
+      name={'input-field'}
+    />
+  );
+};
 
 export default InputField;
