@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint ../../../Users/User/Desktop/Новая папка --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "format:fix": "prettier --write ../../../Users/User/Desktop/Новая папка",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format:fix": "prettier --write .",
     "preview": "vite preview",
     "prepare": "husky install"
   },
