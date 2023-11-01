@@ -32,10 +32,6 @@ export interface SearchBarProps extends InputFieldProps {
   searchSubmitHandler: FormEventHandler<HTMLFormElement>;
 }
 
-export interface SearchBarState {
-  shouldErrorHappened: boolean;
-}
-
 export interface ContentFrameProps {
   people: Person[];
 }
