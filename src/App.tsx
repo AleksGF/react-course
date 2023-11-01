@@ -1,105 +1,81 @@
-import React from 'react';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import SearchBar from './components/SearchBar/SearchBar';
+import React, {
+  useState,
+  type FC,
+  type FormEventHandler,
+  useEffect,
+} from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { type RouteObject } from 'react-router';
+import Layout from './components/Layout/Layout';
 import ContentFrame from './components/ContentFrame/ContentFrame';
-import Loader from './components/common/Loader/Loader';
-import type { AppState } from './types/types';
+import type { Person } from './types/apiTypes';
 import './App.scss';
+import { fetchPeople } from './api/fetchPeople';
 
-const fetchPeople = async (params: Record<string, string> = {}) => {
-  const peopleApiUrl = new URL('https://swapi.dev/api/people/');
+const App: FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [shouldUpdateData, setShouldUpdateData] = useState<boolean>(true);
+  const [peopleToShow, setPeopleToShow] = useState<Person[]>([]);
 
-  for (const [key, value] of Object.entries(params)) {
-    if (value.length) peopleApiUrl.searchParams.append(key, value);
-  }
+  useEffect(() => {
+    if (searchValue === null) {
+      setSearchValue(localStorage.getItem('rc_lastSearch') ?? '');
+    }
+  }, [searchValue]);
 
-  try {
-    const response = await fetch(peopleApiUrl);
+  useEffect(() => {
+    if (shouldUpdateData && searchValue !== null) {
+      const search = searchValue.trim();
+      localStorage.setItem('rc_lastSearch', search);
+      setIsLoading(true);
 
-    if (!response.ok) return [];
+      fetchPeople({ search }).then((data) => {
+        setPeopleToShow(data);
+        setSearchValue(search);
+        setIsLoading(false);
+      });
 
-    const data = await response.json();
+      setShouldUpdateData(false);
+    }
+  }, [shouldUpdateData, searchValue]);
 
-    return data.results;
-  } catch (error) {
-    return [];
-  }
-};
-
-class App extends React.Component<undefined, AppState> {
-  state: AppState = {
-    shouldUpdateData: false,
-    isLoading: false,
-    currentSearch: null,
-    searchValue: '',
-    itemsToShow: [],
+  const searchInputHandler: FormEventHandler<HTMLInputElement> = (e) => {
+    const { value } = e.target as HTMLInputElement;
+    setSearchValue(value.trimStart());
   };
 
-  updateData(search) {
-    if (search === this.state.currentSearch) return;
-
-    this.setState((prevState) => ({
-      ...prevState,
-      isLoading: true,
-    }));
-
-    fetchPeople({ search }).then((data) => {
-      this.setState((prevState) => ({
-        ...prevState,
-        itemsToShow: data,
-        currentSearch: search,
-        searchValue: search,
-        isLoading: false,
-      }));
-    });
-  }
-
-  componentDidMount() {
-    this.updateData(localStorage.getItem('rc_lastSearch') ?? '');
-  }
-
-  componentDidUpdate() {
-    if (this.state.shouldUpdateData) {
-      const searchValue = this.state.searchValue.trim();
-      localStorage.setItem('rc_lastSearch', searchValue);
-      this.updateData(searchValue);
-      this.setState((prevState) => ({ ...prevState, shouldUpdateData: false }));
-    }
-  }
-
-  searchInputHandler(e) {
-    this.setState((prevState) => ({
-      ...prevState,
-      searchValue: e.target.value.trimStart(),
-    }));
-  }
-
-  searchSubmitHandler(e) {
+  const searchSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    this.setState((prevState) => ({ ...prevState, shouldUpdateData: true }));
-  }
+    setShouldUpdateData(true);
+  };
 
-  render() {
-    return (
-      <main className={'wrapper'}>
-        <ErrorBoundary
-          fallback={
-            <p className={'error-message'}>
-              Error happened. Please, <a href={'/'}>reload the page</a>.
-            </p>
-          }
-        >
-          {this.state.isLoading && <Loader />}
-          <SearchBar
-            searchValue={this.state.searchValue}
-            searchInputHandler={this.searchInputHandler.bind(this)}
-            searchSubmitHandler={this.searchSubmitHandler.bind(this)}
-          />
-          <ContentFrame people={this.state.itemsToShow} />
-        </ErrorBoundary>
-      </main>
-    );
-  }
-}
+  const routes: RouteObject[] = [
+    {
+      path: '/',
+      element: (
+        <Layout
+          isLoading={isLoading}
+          searchValue={searchValue || ''}
+          searchInputHandler={searchInputHandler}
+          searchSubmitHandler={searchSubmitHandler}
+        />
+      ),
+      children: [
+        {
+          index: true,
+          element: <ContentFrame people={peopleToShow} />,
+        },
+        {
+          path: 'details/:person',
+          element: <div>Details</div>,
+        },
+      ],
+    },
+  ];
+  const router = createBrowserRouter(routes);
+
+  return <RouterProvider router={router} />;
+};
 
 export default App;

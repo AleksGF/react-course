@@ -6,6 +6,13 @@ import './ContentFrame.scss';
 const ContentFrame: FC<ContentFrameProps> = (props) => {
   const { people } = props;
 
+  if (people.length === 0)
+    return (
+      <div className={'content-frame__wrapper'}>
+        <h2 className={'content-frame__title'}>No one was found</h2>
+      </div>
+    );
+
   return (
     <div className={'content-frame__wrapper'}>
       <h2 className={'content-frame__title'}>Star War Persons</h2>

@@ -17,6 +17,13 @@ export interface ErrorBoundaryProps {
   fallback: ReactElement;
 }
 
+export interface LayoutProps {
+  isLoading: boolean;
+  searchValue: string;
+  searchInputHandler: FormEventHandler<HTMLInputElement>;
+  searchSubmitHandler: FormEventHandler<HTMLFormElement>;
+}
+
 export interface InputFieldProps {
   searchValue: string;
   searchInputHandler: FormEventHandler<HTMLInputElement>;
