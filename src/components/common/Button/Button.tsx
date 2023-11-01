@@ -1,21 +1,15 @@
-import React from 'react';
-import { ButtonProps } from '../../../types/types';
+import React, { type FC } from 'react';
+import type { ButtonProps } from '../../../types/types';
 import './Button.scss';
 
-class Button extends React.Component<
-  React.PropsWithoutRef<ButtonProps>,
-  undefined
-> {
-  render() {
-    return (
-      <button
-        className={`button ${this.props.classType}`}
-        onClick={this.props.clickHandler ? this.props.clickHandler : null}
-      >
-        {this.props.title}
-      </button>
-    );
-  }
-}
+const Button: FC<ButtonProps> = (props) => {
+  const { title, classType, clickHandler } = props;
+
+  return (
+    <button className={`button ${classType}`} onClick={clickHandler || null}>
+      {title}
+    </button>
+  );
+};
 
 export default Button;
