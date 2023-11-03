@@ -7,10 +7,10 @@ import React, {
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { type RouteObject } from 'react-router';
 import Layout from './components/Layout/Layout';
-import ContentFrame from './components/ContentFrame/ContentFrame';
+import PersonDetails from './components/PersonDetails/PersonDetails';
+import { fetchPeople } from './api/fetchPeople';
 import type { Person } from './types/apiTypes';
 import './App.scss';
-import { fetchPeople } from './api/fetchPeople';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -59,16 +59,17 @@ const App: FC = () => {
           searchValue={searchValue || ''}
           searchInputHandler={searchInputHandler}
           searchSubmitHandler={searchSubmitHandler}
+          people={peopleToShow}
         />
       ),
       children: [
         {
           index: true,
-          element: <ContentFrame people={peopleToShow} />,
+          element: null,
         },
         {
-          path: 'details/:person',
-          element: <div>Details</div>,
+          path: 'details/:personId',
+          element: <PersonDetails />,
         },
       ],
     },

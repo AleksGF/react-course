@@ -3,14 +3,20 @@ import { Outlet } from 'react-router-dom';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Loader from '../common/Loader/Loader';
 import SearchBar from '../SearchBar/SearchBar';
+import NavBar from '../NavBar/NavBar';
 import type { LayoutProps } from '../../types/types';
 
 const Layout: FC<LayoutProps> = (props) => {
-  const { isLoading, searchValue, searchInputHandler, searchSubmitHandler } =
-    props;
+  const {
+    isLoading,
+    searchValue,
+    searchInputHandler,
+    searchSubmitHandler,
+    people,
+  } = props;
 
   return (
-    <main className={'wrapper'}>
+    <div className={'wrapper'}>
       <ErrorBoundary
         fallback={
           <p className={'error-message'}>
@@ -24,9 +30,12 @@ const Layout: FC<LayoutProps> = (props) => {
           searchInputHandler={searchInputHandler}
           searchSubmitHandler={searchSubmitHandler}
         />
-        <Outlet />
+        <main className={'content-wrapper'}>
+          <NavBar people={people} />
+          <Outlet />
+        </main>
       </ErrorBoundary>
-    </main>
+    </div>
   );
 };
 

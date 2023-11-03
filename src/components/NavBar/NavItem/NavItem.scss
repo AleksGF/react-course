@@ -1,0 +1,20 @@
+.nav-item__wrapper {
+  margin: 1rem 0;
+}
+
+.nav-item__name {
+  min-width: 10rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-link_active {
+  text-decoration: none;
+
+  .nav-item__name {
+    color: red;
+  }
+}

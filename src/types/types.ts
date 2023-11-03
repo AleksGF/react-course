@@ -22,6 +22,7 @@ export interface LayoutProps {
   searchValue: string;
   searchInputHandler: FormEventHandler<HTMLInputElement>;
   searchSubmitHandler: FormEventHandler<HTMLFormElement>;
+  people: Person[];
 }
 
 export interface InputFieldProps {
@@ -39,10 +40,10 @@ export interface SearchBarProps extends InputFieldProps {
   searchSubmitHandler: FormEventHandler<HTMLFormElement>;
 }
 
-export interface ContentFrameProps {
+export interface NavBarProps {
   people: Person[];
 }
 
-export interface ContentItemProps {
+export interface NavItemProps {
   person: Person;
 }
