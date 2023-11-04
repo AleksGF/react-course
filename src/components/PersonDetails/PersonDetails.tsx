@@ -1,18 +1,20 @@
 import React, { useState, type FC, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { fetchPerson } from '../../api/fetchPerson';
 import Loader from '../common/Loader/Loader';
 import type { Person } from '../../types/apiTypes';
 import CloseSvg from '../../assets/close.svg';
 import './PersonDetails.scss';
+import { getSearchParamsWithout } from '../../helpers/getSearchParamsWithout';
 
 const PersonDetails: FC = () => {
-  const { personId } = useParams();
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [person, setPerson] = useState<Person | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    const personId = searchParams.get('details');
+
     if (personId) {
       setIsLoading(true);
       fetchPerson(personId)
@@ -21,7 +23,11 @@ const PersonDetails: FC = () => {
           setIsLoading(false);
         });
     }
-  }, [personId]);
+  }, [searchParams]);
+
+  const closeDetailsHandler = (): void => {
+    setSearchParams(getSearchParamsWithout(searchParams, ['details']));
+  };
 
   if (isLoading) return <Loader />;
 
@@ -34,9 +40,7 @@ const PersonDetails: FC = () => {
         src={CloseSvg}
         alt={'Close details'}
         width={'24'}
-        onClick={() => {
-          navigate('/');
-        }}
+        onClick={closeDetailsHandler}
       />
       <div className={'details__content'}>
         <h3>Person Details:</h3>

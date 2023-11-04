@@ -1,13 +1,10 @@
-import type { FormEventHandler, ReactElement } from 'react';
-import { Person } from './apiTypes';
-
-export interface AppState {
-  shouldUpdateData: boolean;
-  isLoading: boolean;
-  currentSearch: string | null;
-  searchValue: string;
-  itemsToShow: Person[];
-}
+import type {
+  ChangeEvent,
+  FormEventHandler,
+  MutableRefObject,
+  ReactElement,
+} from 'react';
+import type { Person } from './apiTypes';
 
 export interface ErrorBoundaryState {
   hasError: boolean;
@@ -22,13 +19,18 @@ export interface LayoutProps {
   searchValue: string;
   searchInputHandler: FormEventHandler<HTMLInputElement>;
   searchSubmitHandler: FormEventHandler<HTMLFormElement>;
-  currentPage: number;
-  personsPerPage: number;
-  choosePersonsPerPageHandler: (
-    value: ((prevState: number) => number) | number
+}
+
+export interface MainProps {
+  searchValue: string;
+  shouldUpdateData: boolean;
+  setIsLoading: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  setSearchValue: (
+    value: ((prevState: string | null) => string | null) | string | null,
   ) => void;
-  setCurrentPage: (value: number) => void;
-  people: Person[];
+  setShouldUpdateData: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void;
 }
 
 export interface InputFieldProps {
@@ -48,12 +50,26 @@ export interface SearchBarProps extends InputFieldProps {
 
 export interface NavBarProps {
   people: Person[];
-  personsPerPage: number;
-  choosePersonsPerPageHandler: (
-    value: ((prevState: number) => number) | number
+  totalPeopleCount: MutableRefObject<number>;
+  setShouldUpdateData: (
+    value: ((prevState: boolean) => boolean) | boolean,
   ) => void;
-  currentPage: number;
-  setCurrentPage: (value: number) => void;
+}
+
+export interface SelectProps {
+  wrapperClassName: string;
+  title: string;
+  selectName: string;
+  defaultValue: number | string;
+  changeHandler: (e: ChangeEvent<HTMLSelectElement>) => void;
+  options: number[] | string[];
+}
+
+export interface PaginateProps {
+  pageNumber: number;
+  changePageHandler: (selectedItem: { selected: number }) => void;
+  pageRangeDisplayed: number;
+  pageCount: number;
 }
 
 export interface NavItemProps {

@@ -5,16 +5,14 @@
 .nav-item__name {
   min-width: 10rem;
   font-weight: bold;
-}
+  cursor: pointer;
+  transition: all ease-out .3s;
 
-.nav-link {
-  text-decoration: none;
-}
-
-.nav-link_active {
-  text-decoration: none;
-
-  .nav-item__name {
-    color: red;
+  &:hover {
+    transform: scale(.95);
   }
+}
+
+.active {
+  color: red;
 }

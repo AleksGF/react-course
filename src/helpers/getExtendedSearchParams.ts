@@ -1,10 +1,11 @@
 export const getExtendedSearchParams = (
   searchParams: URLSearchParams,
-  key: string,
-  value: string
+  params: Record<string, string>,
 ): URLSearchParams => {
   const newSearchParams = new URLSearchParams(searchParams);
-  newSearchParams.set(key, value);
+  for (const [key, value] of Object.entries(params)) {
+    newSearchParams.set(key, value);
+  }
 
   return newSearchParams;
 };
