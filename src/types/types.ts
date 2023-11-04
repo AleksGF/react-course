@@ -22,6 +22,12 @@ export interface LayoutProps {
   searchValue: string;
   searchInputHandler: FormEventHandler<HTMLInputElement>;
   searchSubmitHandler: FormEventHandler<HTMLFormElement>;
+  currentPage: number;
+  personsPerPage: number;
+  choosePersonsPerPageHandler: (
+    value: ((prevState: number) => number) | number
+  ) => void;
+  setCurrentPage: (value: number) => void;
   people: Person[];
 }
 
@@ -42,6 +48,12 @@ export interface SearchBarProps extends InputFieldProps {
 
 export interface NavBarProps {
   people: Person[];
+  personsPerPage: number;
+  choosePersonsPerPageHandler: (
+    value: ((prevState: number) => number) | number
+  ) => void;
+  currentPage: number;
+  setCurrentPage: (value: number) => void;
 }
 
 export interface NavItemProps {

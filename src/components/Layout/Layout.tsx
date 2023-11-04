@@ -12,6 +12,10 @@ const Layout: FC<LayoutProps> = (props) => {
     searchValue,
     searchInputHandler,
     searchSubmitHandler,
+    personsPerPage,
+    choosePersonsPerPageHandler,
+    currentPage,
+    setCurrentPage,
     people,
   } = props;
 
@@ -31,7 +35,13 @@ const Layout: FC<LayoutProps> = (props) => {
           searchSubmitHandler={searchSubmitHandler}
         />
         <main className={'content-wrapper'}>
-          <NavBar people={people} />
+          <NavBar
+            people={people}
+            personsPerPage={personsPerPage}
+            choosePersonsPerPageHandler={choosePersonsPerPageHandler}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
           <Outlet />
         </main>
       </ErrorBoundary>
