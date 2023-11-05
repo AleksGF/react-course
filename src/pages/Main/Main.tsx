@@ -5,6 +5,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import PersonDetails from '../../components/PersonDetails/PersonDetails';
 import type { MainProps } from '../../types/types';
 import type { Person } from '../../types/apiTypes';
+import { getExtendedSearchParams } from '../../helpers/getExtendedSearchParams';
 
 const Main: FC<MainProps> = (props) => {
   const {
@@ -14,11 +15,19 @@ const Main: FC<MainProps> = (props) => {
     setSearchValue,
     setShouldUpdateData,
   } = props;
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [peopleToShow, setPeopleToShow] = useState<Person[]>([]);
   const totalPeopleCount = useRef(0);
 
   const isDetailsActive = Boolean(searchParams.get('details'));
+
+  useEffect(() => {
+    const pageFromSearchParams = searchParams.get('page');
+
+    if (!pageFromSearchParams) {
+      setSearchParams(getExtendedSearchParams(searchParams, { page: '1' }));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (shouldUpdateData && (searchValue || searchValue === '')) {
