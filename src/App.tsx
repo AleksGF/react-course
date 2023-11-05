@@ -1,35 +1,22 @@
-import React, {
-  useState,
-  type FC,
-  type FormEventHandler,
-  useEffect,
-} from 'react';
+import React, { useState, type FC, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { type RouteObject } from 'react-router';
 import Layout from './components/Layout/Layout';
 import Main from './pages/Main/Main';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import './App.scss';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string | null>(null);
-  const [shouldUpdateData, setShouldUpdateData] = useState<boolean>(true);
+  const [shouldUpdateData, setShouldUpdateData] = useState<boolean>(false);
 
   useEffect(() => {
     if (searchValue === null) {
       setSearchValue(localStorage.getItem('rc_lastSearch') ?? '');
+      setShouldUpdateData(true);
     }
   }, [searchValue]);
-
-  const searchInputHandler: FormEventHandler<HTMLInputElement> = (e) => {
-    const { value } = e.target as HTMLInputElement;
-    setSearchValue(value.trimStart());
-  };
-
-  const searchSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    setShouldUpdateData(true);
-  };
 
   const routes: RouteObject[] = [
     {
@@ -38,8 +25,8 @@ const App: FC = () => {
         <Layout
           isLoading={isLoading}
           searchValue={searchValue || ''}
-          searchInputHandler={searchInputHandler}
-          searchSubmitHandler={searchSubmitHandler}
+          setSearchValue={setSearchValue}
+          setShouldUpdateData={setShouldUpdateData}
         />
       ),
       children: [
@@ -56,6 +43,7 @@ const App: FC = () => {
           ),
         },
       ],
+      errorElement: <ErrorBoundary />,
     },
   ];
 

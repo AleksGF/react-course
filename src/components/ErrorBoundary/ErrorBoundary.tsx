@@ -1,26 +1,15 @@
-import React, { ErrorInfo, ReactElement } from 'react';
-import type { ErrorBoundaryProps, ErrorBoundaryState } from '../../types/types';
+import React, { type FC } from 'react';
+import { useRouteError } from 'react-router';
 
-class ErrorBoundary extends React.Component<
-  React.PropsWithChildren<ErrorBoundaryProps>,
-  ErrorBoundaryState
-> {
-  state: ErrorBoundaryState = {
-    hasError: false,
-  };
+const ErrorBoundary: FC = () => {
+  const error = useRouteError();
+  console.error(error);
 
-  static getDerivedStateFromError(): { hasError: boolean } {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error: Error, info: ErrorInfo): void {
-    console.log(error.message);
-    console.log(info.componentStack);
-  }
-
-  render(): ReactElement | ReactElement[] {
-    return this.state.hasError ? this.props.fallback : this.props.children;
-  }
-}
+  return (
+    <p className={'error-message'}>
+      Error happened. Please, <a href={'/'}>reload the page</a>.
+    </p>
+  );
+};
 
 export default ErrorBoundary;

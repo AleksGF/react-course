@@ -1,9 +1,4 @@
-import type {
-  ChangeEvent,
-  FormEventHandler,
-  MutableRefObject,
-  ReactElement,
-} from 'react';
+import type { ChangeEvent, MutableRefObject, ReactElement } from 'react';
 import type { Person } from './apiTypes';
 
 export interface ErrorBoundaryState {
@@ -17,8 +12,12 @@ export interface ErrorBoundaryProps {
 export interface LayoutProps {
   isLoading: boolean;
   searchValue: string;
-  searchInputHandler: FormEventHandler<HTMLInputElement>;
-  searchSubmitHandler: FormEventHandler<HTMLFormElement>;
+  setSearchValue: (
+    value: ((prevState: string | null) => string | null) | string | null,
+  ) => void;
+  setShouldUpdateData: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void;
 }
 
 export interface MainProps {
@@ -35,17 +34,21 @@ export interface MainProps {
 
 export interface InputFieldProps {
   searchValue: string;
-  searchInputHandler: FormEventHandler<HTMLInputElement>;
+  setSearchValue: (
+    value: ((prevState: string | null) => string | null) | string | null,
+  ) => void;
+}
+
+export interface SearchBarProps extends InputFieldProps {
+  setShouldUpdateData: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void;
 }
 
 export interface ButtonProps {
   title: string;
   classType: 'submit-button' | 'error-button';
   clickHandler?: () => void;
-}
-
-export interface SearchBarProps extends InputFieldProps {
-  searchSubmitHandler: FormEventHandler<HTMLFormElement>;
 }
 
 export interface NavBarProps {

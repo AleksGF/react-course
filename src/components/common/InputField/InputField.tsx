@@ -1,8 +1,13 @@
-import React, { type FC } from 'react';
+import React, { type FC, type FormEventHandler } from 'react';
 import type { InputFieldProps } from '../../../types/types';
 
 const InputField: FC<InputFieldProps> = (props) => {
-  const { searchValue, searchInputHandler } = props;
+  const { searchValue, setSearchValue } = props;
+
+  const searchInputHandler: FormEventHandler<HTMLInputElement> = (e) => {
+    const { value } = e.target as HTMLInputElement;
+    setSearchValue(value.trimStart());
+  };
 
   return (
     <input
