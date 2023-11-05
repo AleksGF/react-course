@@ -1,13 +1,5 @@
-import type { ChangeEvent, MutableRefObject, ReactElement } from 'react';
+import type { ChangeEvent, MutableRefObject } from 'react';
 import type { Person } from './apiTypes';
-
-export interface ErrorBoundaryState {
-  hasError: boolean;
-}
-
-export interface ErrorBoundaryProps {
-  fallback: ReactElement;
-}
 
 export interface LayoutProps {
   isLoading: boolean;

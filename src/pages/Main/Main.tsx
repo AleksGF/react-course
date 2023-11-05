@@ -1,11 +1,11 @@
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchPeople } from '../../api/fetchPeople';
+import { getExtendedSearchParams } from '../../helpers/getExtendedSearchParams';
 import NavBar from '../../components/NavBar/NavBar';
 import PersonDetails from '../../components/PersonDetails/PersonDetails';
 import type { MainProps } from '../../types/types';
 import type { Person } from '../../types/apiTypes';
-import { getExtendedSearchParams } from '../../helpers/getExtendedSearchParams';
 
 const Main: FC<MainProps> = (props) => {
   const {
@@ -27,7 +27,7 @@ const Main: FC<MainProps> = (props) => {
     if (!pageFromSearchParams) {
       setSearchParams(getExtendedSearchParams(searchParams, { page: '1' }));
     }
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   useEffect(() => {
     if (shouldUpdateData && (searchValue || searchValue === '')) {

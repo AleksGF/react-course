@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SelectProps } from '../../../types/types';
+import type { SelectProps } from '../../../types/types';
 
 const Select: FC<SelectProps> = (props) => {
   const {

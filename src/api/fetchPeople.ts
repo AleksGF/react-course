@@ -1,10 +1,10 @@
 import type { Person } from '../types/apiTypes';
-import { peopleApiResponse } from '../types/apiTypes';
+import type { peopleApiResponse } from '../types/apiTypes';
 
 export const fetchPeople = async (
   currentPage: number,
   personsPerPage: number,
-  params: Record<string, string> = {}
+  params: Record<string, string> = {},
 ): Promise<{ totalCount: number; people: Person[] }> => {
   const peopleApiUrl = new URL('https://swapi.dev/api/people/');
   const apiItemsCount = 10;
