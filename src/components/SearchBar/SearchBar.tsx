@@ -1,7 +1,7 @@
 import React, { type FC, type FormEventHandler } from 'react';
-import InputField from '../common/InputField/InputField';
-import Button from '../common/Button/Button';
-import type { SearchBarProps } from '../../types/types';
+import InputField from '@components/common/InputField/InputField';
+import Button from '@components/common/Button/Button';
+import type { SearchBarProps } from '@types/types';
 import './SearchBar.scss';
 
 const SearchBar: FC<SearchBarProps> = (props) => {

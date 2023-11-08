@@ -1,11 +1,11 @@
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { fetchPeople } from '../../api/fetchPeople';
-import { getExtendedSearchParams } from '../../helpers/getExtendedSearchParams';
-import NavBar from '../../components/NavBar/NavBar';
-import PersonDetails from '../../components/PersonDetails/PersonDetails';
-import type { MainProps } from '../../types/types';
-import type { Person } from '../../types/apiTypes';
+import { fetchPeople } from '@services/api/fetchPeople';
+import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
+import NavBar from '@components/NavBar/NavBar';
+import PersonDetails from '@components/PersonDetails/PersonDetails';
+import type { MainProps } from '@types/types';
+import type { Person } from '@types/apiTypes';
 
 const Main: FC<MainProps> = (props) => {
   const {

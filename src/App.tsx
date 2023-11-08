@@ -1,10 +1,10 @@
 import React, { useState, type FC, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { type RouteObject } from 'react-router';
-import Layout from './components/Layout/Layout';
-import Main from './pages/Main/Main';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import './App.scss';
+import Layout from '@/components/Layout/Layout';
+import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary';
+import Main from '@pages/Main/Main';
+import '@/App.scss';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);

@@ -1,5 +1,5 @@
-import type { Person } from '../types/apiTypes';
-import type { peopleApiResponse } from '../types/apiTypes';
+import type { Person } from '@types/apiTypes';
+import type { peopleApiResponse } from '@types/apiTypes';
 
 export const fetchPeople = async (
   currentPage: number,

@@ -1,8 +1,8 @@
 import React, { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import Loader from '../common/Loader/Loader';
-import SearchBar from '../SearchBar/SearchBar';
-import type { LayoutProps } from '../../types/types';
+import Loader from '@components/common/Loader/Loader';
+import SearchBar from '@components/SearchBar/SearchBar';
+import type { LayoutProps } from '@types/types';
 
 const Layout: FC<LayoutProps> = (props) => {
   const { isLoading, searchValue, setSearchValue, setShouldUpdateData } = props;

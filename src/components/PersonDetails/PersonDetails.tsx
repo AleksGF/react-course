@@ -1,10 +1,10 @@
 import React, { useState, type FC, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { fetchPerson } from '../../api/fetchPerson';
-import { getSearchParamsWithout } from '../../helpers/getSearchParamsWithout';
-import Loader from '../common/Loader/Loader';
-import type { Person } from '../../types/apiTypes';
-import CloseSvg from '../../assets/close.svg';
+import { fetchPerson } from '@services/api/fetchPerson';
+import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
+import Loader from '@components/common/Loader/Loader';
+import type { Person } from '@types/apiTypes';
+import CloseSvg from '@assets/close.svg';
 import './PersonDetails.scss';
 
 const PersonDetails: FC = () => {

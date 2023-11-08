@@ -1,5 +1,5 @@
 import React, { type FC, type FormEventHandler } from 'react';
-import type { InputFieldProps } from '../../../types/types';
+import type { InputFieldProps } from '@types/types';
 
 const InputField: FC<InputFieldProps> = (props) => {
   const { searchValue, setSearchValue } = props;

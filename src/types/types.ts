@@ -1,5 +1,5 @@
 import type { ChangeEvent, MutableRefObject } from 'react';
-import type { Person } from './apiTypes';
+import type { Person } from '@types/apiTypes';
 
 export interface LayoutProps {
   isLoading: boolean;

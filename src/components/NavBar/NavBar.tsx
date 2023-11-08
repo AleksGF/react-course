@@ -1,11 +1,11 @@
 import React, { type FC, type MouseEvent, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getExtendedSearchParams } from '../../helpers/getExtendedSearchParams';
-import { getSearchParamsWithout } from '../../helpers/getSearchParamsWithout';
-import Select from '../common/Select/Select';
-import NavItem from './NavItem/NavItem';
-import Paginate from '../common/Paginate/Paginate';
-import type { NavBarProps } from '../../types/types';
+import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
+import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
+import Select from '@components/common/Select/Select';
+import NavItem from '@components/NavBar/NavItem/NavItem';
+import Paginate from '@components/common/Paginate/Paginate';
+import type { NavBarProps } from '@types/types';
 import './NavBar.scss';
 
 const NavBar: FC<NavBarProps> = (props) => {

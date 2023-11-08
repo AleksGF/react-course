@@ -1,9 +1,9 @@
 import React, { type FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import getPersonIdFromURL from '../../../helpers/getPersonIdFromURL';
-import { getExtendedSearchParams } from '../../../helpers/getExtendedSearchParams';
-import { getSearchParamsWithout } from '../../../helpers/getSearchParamsWithout';
-import type { NavItemProps } from '../../../types/types';
+import { getPersonIdFromURL } from '@helpers/getPersonIdFromURL';
+import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
+import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
+import type { NavItemProps } from '@types/types';
 import './NavItem.scss';
 
 const NavItem: FC<NavItemProps> = (props) => {
