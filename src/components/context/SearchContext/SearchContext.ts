@@ -1,4 +1,5 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
+import { getUseContextHook } from '@helpers/getUseContextHook';
 
 export type SearchValue = string;
 
@@ -9,12 +10,5 @@ interface SearchContextInterface {
 
 export const SearchContext = createContext<SearchContextInterface | null>(null);
 
-export const useSearchContext = (): SearchContextInterface => {
-  const context = useContext(SearchContext);
-
-  if (context === null) {
-    throw new Error('Context was not provided');
-  }
-
-  return context;
-};
+export const useSearchContext =
+  getUseContextHook<SearchContextInterface>(SearchContext);

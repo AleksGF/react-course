@@ -1,11 +1,11 @@
-import React, { type FC, useEffect, useRef, useState } from 'react';
+import React, { type FC, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useSearchContext } from '@components/context/SearchContext/SearchContext';
 import { fetchPeople } from '@services/api/fetchPeople';
 import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import NavBar from '@components/NavBar/NavBar';
 import PersonDetails from '@components/PersonDetails/PersonDetails';
-import type { Person } from '@types/apiTypes';
+import { useDataListContext } from '@components/context/DataListContext/DataListContext';
 
 interface MainProps {
   shouldUpdateData: boolean;
@@ -17,9 +17,11 @@ interface MainProps {
 
 const Main: FC<MainProps> = (props) => {
   const { shouldUpdateData, setIsLoading, setShouldUpdateData } = props;
+
   const { searchValue } = useSearchContext();
+  const { people, setPeople } = useDataListContext();
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const [peopleToShow, setPeopleToShow] = useState<Person[]>([]);
   const totalPeopleCount = useRef(0);
 
   const isDetailsActive = Boolean(searchParams.get('details'));
@@ -42,25 +44,19 @@ const Main: FC<MainProps> = (props) => {
       fetchPeople(currentPage, personsPerPage === 20 ? personsPerPage : 10, {
         searchValue,
       }).then((data) => {
-        setPeopleToShow(data.people);
+        setPeople(data.people);
         totalPeopleCount.current = data.totalCount;
         setIsLoading(false);
       });
 
       setShouldUpdateData(false);
     }
-  }, [
-    shouldUpdateData,
-    searchValue,
-    searchParams,
-    setIsLoading,
-    setShouldUpdateData,
-  ]);
+  }, [shouldUpdateData, setIsLoading, setShouldUpdateData]);
 
   return (
     <main className={'content-wrapper'}>
       <NavBar
-        people={peopleToShow}
+        people={people}
         totalPeopleCount={totalPeopleCount}
         setShouldUpdateData={setShouldUpdateData}
       />
