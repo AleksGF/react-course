@@ -1,42 +1,6 @@
 import type { ChangeEvent, MutableRefObject } from 'react';
 import type { Person } from '@types/apiTypes';
 
-export interface LayoutProps {
-  isLoading: boolean;
-  searchValue: string;
-  setSearchValue: (
-    value: ((prevState: string | null) => string | null) | string | null,
-  ) => void;
-  setShouldUpdateData: (
-    value: ((prevState: boolean) => boolean) | boolean,
-  ) => void;
-}
-
-export interface MainProps {
-  searchValue: string;
-  shouldUpdateData: boolean;
-  setIsLoading: (value: ((prevState: boolean) => boolean) | boolean) => void;
-  setSearchValue: (
-    value: ((prevState: string | null) => string | null) | string | null,
-  ) => void;
-  setShouldUpdateData: (
-    value: ((prevState: boolean) => boolean) | boolean,
-  ) => void;
-}
-
-export interface InputFieldProps {
-  searchValue: string;
-  setSearchValue: (
-    value: ((prevState: string | null) => string | null) | string | null,
-  ) => void;
-}
-
-export interface SearchBarProps extends InputFieldProps {
-  setShouldUpdateData: (
-    value: ((prevState: boolean) => boolean) | boolean,
-  ) => void;
-}
-
 export interface ButtonProps {
   title: string;
   classType: 'submit-button' | 'error-button';

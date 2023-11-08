@@ -1,20 +1,23 @@
 import React, { type FC, useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useSearchContext } from '@components/context/SearchContext/SearchContext';
 import { fetchPeople } from '@services/api/fetchPeople';
 import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import NavBar from '@components/NavBar/NavBar';
 import PersonDetails from '@components/PersonDetails/PersonDetails';
-import type { MainProps } from '@types/types';
 import type { Person } from '@types/apiTypes';
 
+interface MainProps {
+  shouldUpdateData: boolean;
+  setIsLoading: (value: ((prevState: boolean) => boolean) | boolean) => void;
+  setShouldUpdateData: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void;
+}
+
 const Main: FC<MainProps> = (props) => {
-  const {
-    searchValue,
-    shouldUpdateData,
-    setIsLoading,
-    setSearchValue,
-    setShouldUpdateData,
-  } = props;
+  const { shouldUpdateData, setIsLoading, setShouldUpdateData } = props;
+  const { searchValue } = useSearchContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [peopleToShow, setPeopleToShow] = useState<Person[]>([]);
   const totalPeopleCount = useRef(0);
@@ -30,20 +33,17 @@ const Main: FC<MainProps> = (props) => {
   }, [searchParams, setSearchParams]);
 
   useEffect(() => {
-    if (shouldUpdateData && (searchValue || searchValue === '')) {
-      const search = searchValue.trim();
-      localStorage.setItem('rc_lastSearch', search);
+    if (shouldUpdateData) {
       const currentPage = Number(searchParams.get('page') ?? '1');
       const personsPerPage = Number(searchParams.get('limit') ?? '10');
 
       setIsLoading(true);
 
       fetchPeople(currentPage, personsPerPage === 20 ? personsPerPage : 10, {
-        search,
+        searchValue,
       }).then((data) => {
         setPeopleToShow(data.people);
         totalPeopleCount.current = data.totalCount;
-        setSearchValue(search);
         setIsLoading(false);
       });
 
@@ -55,7 +55,6 @@ const Main: FC<MainProps> = (props) => {
     searchParams,
     setIsLoading,
     setShouldUpdateData,
-    setSearchValue,
   ]);
 
   return (

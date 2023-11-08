@@ -2,19 +2,18 @@ import React, { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import Loader from '@components/common/Loader/Loader';
 import SearchBar from '@components/SearchBar/SearchBar';
-import type { LayoutProps } from '@types/types';
+
+interface LayoutProps {
+  isLoading: boolean;
+}
 
 const Layout: FC<LayoutProps> = (props) => {
-  const { isLoading, searchValue, setSearchValue, setShouldUpdateData } = props;
+  const { isLoading } = props;
 
   return (
     <div className={'wrapper'}>
       {isLoading && <Loader />}
-      <SearchBar
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        setShouldUpdateData={setShouldUpdateData}
-      />
+      <SearchBar />
       <Outlet />
     </div>
   );

@@ -1,15 +1,25 @@
-import React, { type FC, type FormEventHandler } from 'react';
+import React, {
+  type FC,
+  type FormEventHandler,
+  useCallback,
+  useState,
+} from 'react';
 import InputField from '@components/common/InputField/InputField';
 import Button from '@components/common/Button/Button';
-import type { SearchBarProps } from '@types/types';
 import './SearchBar.scss';
+import { useSearchContext } from '@components/context/SearchContext/SearchContext';
 
-const SearchBar: FC<SearchBarProps> = (props) => {
-  const { searchValue, setSearchValue, setShouldUpdateData } = props;
+const SearchBar: FC = () => {
+  const { searchValue, setSearchValue } = useSearchContext();
+
+  const [inputValue, setInputValue] = useState<string>(searchValue);
 
   const searchSubmitHandler: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setShouldUpdateData(true);
+
+    const newValue = inputValue.trim();
+    localStorage.setItem('rc_lastSearch', newValue);
+    setSearchValue(newValue);
   };
 
   return (
@@ -19,7 +29,15 @@ const SearchBar: FC<SearchBarProps> = (props) => {
         onSubmit={searchSubmitHandler}
         name={'search-field-form'}
       >
-        <InputField searchValue={searchValue} setSearchValue={setSearchValue} />
+        <InputField
+          value={inputValue}
+          setValue={useCallback(
+            (value) => {
+              setInputValue(value);
+            },
+            [setInputValue],
+          )}
+        />
         <Button title={'Search'} classType={'submit-button'} />
       </form>
     </div>

@@ -1,18 +1,22 @@
 import React, { type FC, type FormEventHandler } from 'react';
-import type { InputFieldProps } from '@types/types';
+
+export interface InputFieldProps {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const InputField: FC<InputFieldProps> = (props) => {
-  const { searchValue, setSearchValue } = props;
+  const { value, setValue } = props;
 
   const searchInputHandler: FormEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target as HTMLInputElement;
-    setSearchValue(value.trimStart());
+    setValue(value.trimStart());
   };
 
   return (
     <input
       type={'text'}
-      value={searchValue}
+      value={value}
       onInput={searchInputHandler}
       name={'input-field'}
     />
