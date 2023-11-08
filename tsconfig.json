@@ -15,6 +15,7 @@
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/components/*"],
       "@assets/*": ["src/assets/*"],
+      "@constants/*": ["src/constants/*"],
       "@services/*": ["src/services/*"],
       "@helpers/*": ["src/helpers/*"],
       "@types/*": ["src/types/*"],
