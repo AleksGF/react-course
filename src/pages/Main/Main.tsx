@@ -6,20 +6,21 @@ import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import NavBar from '@components/NavBar/NavBar';
 import PersonDetails from '@components/PersonDetails/PersonDetails';
 import { useDataListContext } from '@components/context/DataListContext/DataListContext';
+import { useLoadingStatusContext } from '@components/context/LoadingStatusContext/LoadingStatusContext';
 
 interface MainProps {
   shouldUpdateData: boolean;
-  setIsLoading: (value: ((prevState: boolean) => boolean) | boolean) => void;
   setShouldUpdateData: (
     value: ((prevState: boolean) => boolean) | boolean,
   ) => void;
 }
 
 const Main: FC<MainProps> = (props) => {
-  const { shouldUpdateData, setIsLoading, setShouldUpdateData } = props;
+  const { shouldUpdateData, setShouldUpdateData } = props;
 
   const { searchValue } = useSearchContext();
   const { people, setPeople } = useDataListContext();
+  const { setIsLoading } = useLoadingStatusContext();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const totalPeopleCount = useRef(0);

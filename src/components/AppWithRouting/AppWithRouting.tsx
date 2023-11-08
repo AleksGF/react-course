@@ -6,20 +6,18 @@ import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary';
 import Main from '@pages/Main/Main';
 
 const AppWithRouting: FC<PropsWithChildren> = ({ children }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [shouldUpdateData, setShouldUpdateData] = useState<boolean>(false);
 
   const routes: RouteObject[] = [
     {
       path: '/',
-      element: <Layout isLoading={isLoading} />,
+      element: <Layout />,
       children: [
         {
           index: true,
           element: (
             <Main
               shouldUpdateData={shouldUpdateData}
-              setIsLoading={setIsLoading}
               setShouldUpdateData={setShouldUpdateData}
             />
           ),
