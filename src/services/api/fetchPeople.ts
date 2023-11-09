@@ -1,49 +1,43 @@
-import type { Person } from '@types/apiTypes';
-import type { peopleApiResponse } from '@types/apiTypes';
-import { FIRST_PAGE, ITEMS_PER_PAGE } from '@constants/constants';
+import { fetchApi } from '@services/api/fetchApi';
+import { API_URL, FIRST_PAGE, ITEMS_PER_PAGE } from '@constants/constants';
+import type { Person, peopleApiResponse } from '@types/apiTypes';
 
-//TODO Refactor this
+interface PeopleFetchResult {
+  totalCount: number;
+  people: Person[];
+}
+
+// Get api page number for different itemsPerPage counts
+const getApiPageNumber = (pageNumber: number, itemsPerPage: number): number =>
+  (pageNumber - 1) * (itemsPerPage / ITEMS_PER_PAGE.DEFAULT) + 1;
+
 export const fetchPeople = async (
   currentPage: number = FIRST_PAGE,
   personsPerPage: ITEMS_PER_PAGE = ITEMS_PER_PAGE.DEFAULT,
   searchValue: string = '',
-): Promise<{ totalCount: number; people: Person[] }> => {
-  const peopleApiUrl = new URL('https://swapi.dev/api/people/');
-  const apiItemsCount = 10;
+): Promise<PeopleFetchResult> => {
+  const fetchCount = personsPerPage / ITEMS_PER_PAGE.DEFAULT;
+  const result: PeopleFetchResult = { totalCount: 0, people: [] };
 
-  const page =
-    personsPerPage === apiItemsCount
-      ? currentPage
-      : currentPage * (personsPerPage / apiItemsCount) - 1;
+  const page = getApiPageNumber(currentPage, personsPerPage);
 
-  peopleApiUrl.searchParams.append('page', String(page));
+  let apiUrl: string | null = searchValue
+    ? `${API_URL}?search=${encodeURIComponent(searchValue)}&page=${String(
+        page,
+      )}`
+    : `${API_URL}?page=${String(page)}`;
+  for (let i = 0; i < fetchCount; i += 1) {
+    const res = await fetchApi<peopleApiResponse>(apiUrl);
 
-  if (searchValue) {
-    peopleApiUrl.searchParams.append('search', searchValue);
+    if (!res) return result;
+
+    result.totalCount = res.count;
+    result.people.push(...res.results);
+
+    apiUrl = res.next;
+
+    if (!apiUrl) break;
   }
 
-  try {
-    const people: Person[] = [];
-    const response = await fetch(peopleApiUrl);
-
-    if (!response.ok) return { totalCount: 0, people: [] };
-
-    const data = (await response.json()) as peopleApiResponse;
-
-    people.push(...data.results);
-
-    if (personsPerPage / apiItemsCount === 2 && data.next !== null) {
-      peopleApiUrl.searchParams.set('page', String(page + 1));
-      const secondResponse = await fetch(peopleApiUrl);
-
-      if (!secondResponse.ok) return { totalCount: 0, people: [] };
-
-      const secondData = (await secondResponse.json()) as peopleApiResponse;
-      people.push(...secondData.results);
-    }
-
-    return { totalCount: data.count, people };
-  } catch (error) {
-    return { totalCount: 0, people: [] };
-  }
+  return result;
 };
