@@ -4,13 +4,18 @@ import React, {
   useCallback,
   useState,
 } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
+import { useSearchContext } from '@components/context/SearchContext/SearchContext';
 import InputField from '@components/common/InputField/InputField';
 import Button from '@components/common/Button/Button';
+import { FIRST_PAGE } from '@constants/constants';
 import './SearchBar.scss';
-import { useSearchContext } from '@components/context/SearchContext/SearchContext';
 
 const SearchBar: FC = () => {
   const { searchValue, setSearchValue } = useSearchContext();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [inputValue, setInputValue] = useState<string>(searchValue);
 
@@ -18,7 +23,15 @@ const SearchBar: FC = () => {
     e.preventDefault();
 
     const newValue = inputValue.trim();
+
     localStorage.setItem('rc_lastSearch', newValue);
+
+    setSearchParams(
+      getExtendedSearchParams(searchParams, {
+        page: String(FIRST_PAGE),
+      }),
+    );
+
     setSearchValue(newValue);
   };
 

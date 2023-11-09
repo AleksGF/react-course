@@ -1,5 +1,13 @@
-import React, { FC } from 'react';
-import type { SelectProps } from '@types/types';
+import React, { type ChangeEvent, type FC } from 'react';
+
+interface SelectProps {
+  wrapperClassName: string;
+  title: string;
+  selectName: string;
+  defaultValue: number | string;
+  changeHandler: (e: ChangeEvent<HTMLSelectElement>) => void;
+  options: number[] | string[];
+}
 
 const Select: FC<SelectProps> = (props) => {
   const {
@@ -19,13 +27,11 @@ const Select: FC<SelectProps> = (props) => {
         defaultValue={defaultValue}
         onChange={changeHandler}
       >
-        {options.map((optionValue) => {
-          return (
-            <option key={optionValue} value={optionValue}>
-              {optionValue}
-            </option>
-          );
-        })}
+        {options.map((optionValue) => (
+          <option key={optionValue} value={optionValue}>
+            {optionValue}
+          </option>
+        ))}
       </select>
     </div>
   );

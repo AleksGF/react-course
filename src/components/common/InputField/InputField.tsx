@@ -10,6 +10,7 @@ const InputField: FC<InputFieldProps> = (props) => {
 
   const searchInputHandler: FormEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.target as HTMLInputElement;
+
     setValue(value.trimStart());
   };
 

@@ -1,6 +1,13 @@
 import React, { type FC } from 'react';
-import type { ButtonProps } from '@types/types';
 import './Button.scss';
+
+type ButtonClassType = 'submit-button' | 'error-button';
+
+interface ButtonProps {
+  title: string;
+  classType: ButtonClassType;
+  clickHandler?: () => void;
+}
 
 const Button: FC<ButtonProps> = (props) => {
   const { title, classType, clickHandler } = props;

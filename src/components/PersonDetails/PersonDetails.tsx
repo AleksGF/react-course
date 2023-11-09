@@ -6,18 +6,21 @@ import Loader from '@components/common/Loader/Loader';
 import type { Person } from '@types/apiTypes';
 import CloseSvg from '@assets/close.svg';
 import './PersonDetails.scss';
+import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
 
 const PersonDetails: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [person, setPerson] = useState<Person | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const personId = searchParams.get('details');
+    const personId = getNumberFromSearchParams(searchParams, 'details', 0);
 
     if (personId) {
       setIsLoading(true);
-      fetchPerson(personId)
+
+      fetchPerson(String(personId))
         .then(setPerson)
         .finally(() => {
           setIsLoading(false);
@@ -52,7 +55,7 @@ const PersonDetails: FC = () => {
             ? 'Her'
             : 'Its'
         } height is ${person.height || 'n/a'}.`}</p>
-        <p>{`Films count with is ${String(person.films.length || 0)}.`}</p>
+        <p>{`Films count with is ${String(person.films?.length || 0)}.`}</p>
       </div>
     </div>
   );

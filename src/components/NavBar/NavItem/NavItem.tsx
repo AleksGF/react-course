@@ -1,38 +1,50 @@
-import React, { type FC } from 'react';
+import React, { type FC, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getPersonIdFromURL } from '@helpers/getPersonIdFromURL';
 import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
-import type { NavItemProps } from '@types/types';
+import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
+import type { Person } from '@types/apiTypes';
 import './NavItem.scss';
+
+interface NavItemProps {
+  person: Person;
+}
 
 const NavItem: FC<NavItemProps> = (props) => {
   const { person } = props;
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const personId = getPersonIdFromURL(person.url);
 
-  const isActive = personId === Number(searchParams.get('details'));
+  const isActive =
+    personId === getNumberFromSearchParams(searchParams, 'details', 0);
 
   const className = isActive
     ? 'nav-item__name active'
     : 'nav-item__name nav-link';
 
-  const clickHandler = (personId: number, isActive: boolean): void => {
-    setSearchParams(
-      isActive
-        ? getSearchParamsWithout(searchParams, ['details'])
-        : getExtendedSearchParams(searchParams, { details: String(personId) }),
-    );
-  };
+  const clickHandler = useCallback(
+    (personId: number, isActive: boolean): void => {
+      setSearchParams(
+        isActive
+          ? getSearchParamsWithout(searchParams, ['details'])
+          : getExtendedSearchParams(searchParams, {
+              details: String(personId),
+            }),
+      );
+    },
+    [searchParams, setSearchParams],
+  );
 
   return (
     <div className={'nav-item__wrapper'}>
       <div
         className={className}
-        onClick={() => {
+        onClick={useCallback(() => {
           clickHandler(personId, isActive);
-        }}
+        }, [clickHandler, isActive, personId])}
       >
         {person.name}
       </div>
