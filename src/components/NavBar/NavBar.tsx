@@ -19,6 +19,10 @@ const NavBar: FC = () => {
   const { people, totalPeopleCount } = useDataListContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const selectOptions = Object.values(ITEMS_PER_PAGE).filter(
+    (value) => typeof value === 'number',
+  );
+
   const pageFromURL = getNumberFromSearchParams(
     searchParams,
     'page',
@@ -94,7 +98,7 @@ const NavBar: FC = () => {
         selectName={'persons-per-page'}
         defaultValue={personsPerPage}
         changeHandler={selectPersonsPerPageHandler}
-        options={Object.values(ITEMS_PER_PAGE)}
+        options={selectOptions}
       />
       {people.map((person) => (
         <NavItem
