@@ -10,6 +10,7 @@ const DataListContextProvider: FC<DataListContextProviderProps> = ({
   children,
 }) => {
   const [people, setPeople] = useState<Person[]>([]);
+  const [totalPeopleCount, setTotalPeopleCount] = useState<number>(0);
 
   return (
     <DataListContext.Provider
@@ -20,6 +21,13 @@ const DataListContextProvider: FC<DataListContextProviderProps> = ({
             setPeople(newPeople);
           },
           [setPeople],
+        ),
+        totalPeopleCount,
+        setTotalPeopleCount: useCallback(
+          (newValue: number) => {
+            setTotalPeopleCount(newValue);
+          },
+          [setTotalPeopleCount],
         ),
       }}
     >

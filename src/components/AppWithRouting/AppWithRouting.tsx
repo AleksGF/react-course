@@ -1,35 +1,33 @@
-import React, { useState, type FC, type PropsWithChildren } from 'react';
+import React, { type FC } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { type RouteObject } from 'react-router';
+import ApiDataProvider from '@components/ApiDataProvider/ApiDataProvider';
 import Layout from '@/components/Layout/Layout';
 import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary';
 import Main from '@pages/Main/Main';
 
-const AppWithRouting: FC<PropsWithChildren> = ({ children }) => {
-  const [shouldUpdateData, setShouldUpdateData] = useState<boolean>(false);
+const routes: RouteObject[] = [
+  {
+    path: '/',
+    element: (
+      <ApiDataProvider>
+        <Layout />
+      </ApiDataProvider>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Main />,
+      },
+    ],
+    errorElement: <ErrorBoundary />,
+  },
+];
 
-  const routes: RouteObject[] = [
-    {
-      path: '/',
-      element: <Layout />,
-      children: [
-        {
-          index: true,
-          element: (
-            <Main
-              shouldUpdateData={shouldUpdateData}
-              setShouldUpdateData={setShouldUpdateData}
-            />
-          ),
-        },
-      ],
-      errorElement: <ErrorBoundary />,
-    },
-  ];
+const router = createBrowserRouter(routes);
 
-  const router = createBrowserRouter(routes);
-
-  return <RouterProvider router={router}>{children}</RouterProvider>;
+const AppWithRouting: FC = () => {
+  return <RouterProvider router={router} />;
 };
 
 export default AppWithRouting;

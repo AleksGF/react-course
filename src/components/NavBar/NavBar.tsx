@@ -1,25 +1,36 @@
 import React, { type FC, type MouseEvent, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useDataListContext } from '@components/context/DataListContext/DataListContext';
+import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
 import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
 import Select from '@components/common/Select/Select';
 import NavItem from '@components/NavBar/NavItem/NavItem';
 import Paginate from '@components/common/Paginate/Paginate';
-import type { NavBarProps } from '@types/types';
+import { FIRST_PAGE } from '@constants/constants';
 import './NavBar.scss';
 
-const NavBar: FC<NavBarProps> = (props) => {
-  const { people, totalPeopleCount, setShouldUpdateData } = props;
+const NavBar: FC = () => {
+  const { people, totalPeopleCount } = useDataListContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const pageNumber = Number(searchParams.get('page') ?? '1');
+  const pageFromURL = getNumberFromSearchParams(
+    searchParams,
+    'page',
+    FIRST_PAGE,
+  );
 
+  // TODO Refactor this
   const personsPerPage =
     Number(searchParams.get('limit')) === 20
       ? Number(searchParams.get('limit'))
       : 10;
-  const personsCount = totalPeopleCount.current;
 
+  const totalPageCount = Math.ceil(totalPeopleCount / personsPerPage);
+  const pageNumber =
+    pageFromURL > 0 && pageFromURL <= totalPageCount ? pageFromURL : FIRST_PAGE;
+
+  // TODO add useCallback
   const pageChangeHandler = (e: { selected: number }) => {
     if (pageNumber === e.selected + 1) return;
 
@@ -31,7 +42,6 @@ const NavBar: FC<NavBarProps> = (props) => {
         ['details'],
       ),
     );
-    setShouldUpdateData(true);
   };
 
   const wrapperClickHandler = (e: MouseEvent<HTMLDivElement>) => {
@@ -51,7 +61,6 @@ const NavBar: FC<NavBarProps> = (props) => {
         page: '1',
       }),
     );
-    setShouldUpdateData(true);
   };
 
   if (people.length === 0)
@@ -78,12 +87,12 @@ const NavBar: FC<NavBarProps> = (props) => {
           person={person}
         />
       ))}
-      {personsCount > 0 && (
+      {totalPeopleCount > 0 && (
         <Paginate
           pageNumber={pageNumber - 1}
           changePageHandler={pageChangeHandler}
           pageRangeDisplayed={2}
-          pageCount={Math.ceil(personsCount / personsPerPage)}
+          pageCount={totalPageCount}
         />
       )}
     </div>

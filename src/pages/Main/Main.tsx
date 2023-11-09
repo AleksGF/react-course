@@ -1,66 +1,17 @@
-import React, { type FC, useEffect, useRef } from 'react';
+import React, { type FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useSearchContext } from '@components/context/SearchContext/SearchContext';
-import { fetchPeople } from '@services/api/fetchPeople';
-import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import NavBar from '@components/NavBar/NavBar';
 import PersonDetails from '@components/PersonDetails/PersonDetails';
-import { useDataListContext } from '@components/context/DataListContext/DataListContext';
-import { useLoadingStatusContext } from '@components/context/LoadingStatusContext/LoadingStatusContext';
+import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
 
-interface MainProps {
-  shouldUpdateData: boolean;
-  setShouldUpdateData: (
-    value: ((prevState: boolean) => boolean) | boolean,
-  ) => void;
-}
-
-const Main: FC<MainProps> = (props) => {
-  const { shouldUpdateData, setShouldUpdateData } = props;
-
-  const { searchValue } = useSearchContext();
-  const { people, setPeople } = useDataListContext();
-  const { setIsLoading } = useLoadingStatusContext();
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const totalPeopleCount = useRef(0);
-
-  const isDetailsActive = Boolean(searchParams.get('details'));
-
-  useEffect(() => {
-    const pageFromSearchParams = searchParams.get('page');
-
-    if (!pageFromSearchParams) {
-      setSearchParams(getExtendedSearchParams(searchParams, { page: '1' }));
-    }
-  }, [searchParams, setSearchParams]);
-
-  useEffect(() => {
-    if (shouldUpdateData) {
-      const currentPage = Number(searchParams.get('page') ?? '1');
-      const personsPerPage = Number(searchParams.get('limit') ?? '10');
-
-      setIsLoading(true);
-
-      fetchPeople(currentPage, personsPerPage === 20 ? personsPerPage : 10, {
-        searchValue,
-      }).then((data) => {
-        setPeople(data.people);
-        totalPeopleCount.current = data.totalCount;
-        setIsLoading(false);
-      });
-
-      setShouldUpdateData(false);
-    }
-  }, [shouldUpdateData, setIsLoading, setShouldUpdateData]);
+const Main: FC = () => {
+  const [searchParams] = useSearchParams();
+  const detailsId = getNumberFromSearchParams(searchParams, 'details', 0);
+  const isDetailsActive = !!(detailsId && detailsId > 0);
 
   return (
     <main className={'content-wrapper'}>
-      <NavBar
-        people={people}
-        totalPeopleCount={totalPeopleCount}
-        setShouldUpdateData={setShouldUpdateData}
-      />
+      <NavBar />
       {isDetailsActive && <PersonDetails />}
     </main>
   );

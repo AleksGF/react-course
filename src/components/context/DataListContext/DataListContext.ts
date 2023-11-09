@@ -5,6 +5,8 @@ import type { Person } from '@types/apiTypes';
 interface DataListContextInterface {
   people: Person[];
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
+  totalPeopleCount: number;
+  setTotalPeopleCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const DataListContext = createContext<DataListContextInterface | null>(

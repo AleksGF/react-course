@@ -1,10 +1,12 @@
 import type { Person } from '@types/apiTypes';
 import type { peopleApiResponse } from '@types/apiTypes';
+import { FIRST_PAGE, ITEMS_PER_PAGE } from '@constants/constants';
 
+//TODO Refactor this
 export const fetchPeople = async (
-  currentPage: number,
-  personsPerPage: number,
-  params: Record<string, string> = {},
+  currentPage: number = FIRST_PAGE,
+  personsPerPage: ITEMS_PER_PAGE = ITEMS_PER_PAGE.DEFAULT,
+  searchValue: string = '',
 ): Promise<{ totalCount: number; people: Person[] }> => {
   const peopleApiUrl = new URL('https://swapi.dev/api/people/');
   const apiItemsCount = 10;
@@ -16,8 +18,8 @@ export const fetchPeople = async (
 
   peopleApiUrl.searchParams.append('page', String(page));
 
-  for (const [key, value] of Object.entries(params)) {
-    if (value.length) peopleApiUrl.searchParams.append(key, value);
+  if (searchValue) {
+    peopleApiUrl.searchParams.append('search', searchValue);
   }
 
   try {

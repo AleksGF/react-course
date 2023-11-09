@@ -1,18 +1,10 @@
-import type { ChangeEvent, MutableRefObject } from 'react';
+import type { ChangeEvent } from 'react';
 import type { Person } from '@types/apiTypes';
 
 export interface ButtonProps {
   title: string;
   classType: 'submit-button' | 'error-button';
   clickHandler?: () => void;
-}
-
-export interface NavBarProps {
-  people: Person[];
-  totalPeopleCount: MutableRefObject<number>;
-  setShouldUpdateData: (
-    value: ((prevState: boolean) => boolean) | boolean,
-  ) => void;
 }
 
 export interface SelectProps {
