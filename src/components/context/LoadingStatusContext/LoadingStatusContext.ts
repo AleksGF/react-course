@@ -1,9 +1,9 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { getUseContextHook } from '@helpers/getUseContextHook';
 
 interface LoadingStatusContextInterface {
   isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: (status: boolean) => void;
 }
 
 export const LoadingStatusContext =

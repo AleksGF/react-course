@@ -1,6 +1,6 @@
 import React, { type FC, useCallback, useState } from 'react';
 import { DataListContext } from '@components/context/DataListContext/DataListContext';
-import type { Person } from '@types/apiTypes';
+import type { Person } from '@/types/apiTypes';
 
 interface DataListContextProviderProps {
   children: React.ReactNode;

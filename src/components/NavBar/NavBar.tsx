@@ -19,9 +19,9 @@ const NavBar: FC = () => {
   const { people, totalPeopleCount } = useDataListContext();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectOptions = Object.values(ITEMS_PER_PAGE).filter(
-    (value) => typeof value === 'number',
-  );
+  const selectOptions: number[] = Object.values(ITEMS_PER_PAGE)
+    .filter((value) => typeof value === 'number')
+    .map((value) => Number(value));
 
   const pageFromURL = getNumberFromSearchParams(
     searchParams,
@@ -42,7 +42,9 @@ const NavBar: FC = () => {
   const totalPageCount = Math.ceil(totalPeopleCount / personsPerPage);
 
   const pageNumber =
-    pageFromURL > 0 && pageFromURL <= totalPageCount ? pageFromURL : FIRST_PAGE;
+    pageFromURL && pageFromURL > 0 && pageFromURL <= totalPageCount
+      ? pageFromURL
+      : FIRST_PAGE;
 
   const pageChangeHandler = useCallback(
     (e: { selected: number }) => {
@@ -108,7 +110,7 @@ const NavBar: FC = () => {
       ))}
       {!!totalPeopleCount && (
         <Paginate
-          pageNumber={pageNumber - 1}
+          pageNumber={pageNumber ? pageNumber - 1 : 1}
           changePageHandler={pageChangeHandler}
           pageRangeDisplayed={2}
           pageCount={totalPageCount}

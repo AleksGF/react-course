@@ -13,7 +13,7 @@ const Button: FC<ButtonProps> = (props) => {
   const { title, classType, clickHandler } = props;
 
   return (
-    <button className={`button ${classType}`} onClick={clickHandler || null}>
+    <button className={`button ${classType}`} onClick={clickHandler}>
       {title}
     </button>
   );

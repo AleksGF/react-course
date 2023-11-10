@@ -1,4 +1,4 @@
-import type { Person } from '@types/apiTypes';
+import type { Person } from '@/types/apiTypes';
 
 export const fetchPerson = async (personId: string): Promise<Person | null> => {
   const personApiUrl = new URL(`https://swapi.dev/api/people/${personId}/`);

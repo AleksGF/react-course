@@ -1,11 +1,11 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { getUseContextHook } from '@helpers/getUseContextHook';
 
 export type SearchValue = string;
 
 interface SearchContextInterface {
   searchValue: SearchValue;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  setSearchValue: (value: string) => void;
 }
 
 export const SearchContext = createContext<SearchContextInterface | null>(null);

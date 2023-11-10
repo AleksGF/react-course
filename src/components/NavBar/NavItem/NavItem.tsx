@@ -4,7 +4,7 @@ import { getPersonIdFromURL } from '@helpers/getPersonIdFromURL';
 import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
 import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
 import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
-import type { Person } from '@types/apiTypes';
+import type { Person } from '@/types/apiTypes';
 import './NavItem.scss';
 
 interface NavItemProps {

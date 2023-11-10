@@ -1,6 +1,6 @@
 import { fetchApi } from '@services/api/fetchApi';
 import { API_URL, FIRST_PAGE, ITEMS_PER_PAGE } from '@constants/constants';
-import type { Person, peopleApiResponse } from '@types/apiTypes';
+import { type Person, type peopleApiResponse } from '@/types/apiTypes';
 
 interface PeopleFetchResult {
   totalCount: number;
@@ -27,7 +27,8 @@ export const fetchPeople = async (
       )}`
     : `${API_URL}?page=${String(page)}`;
   for (let i = 0; i < fetchCount; i += 1) {
-    const res = await fetchApi<peopleApiResponse>(apiUrl);
+    const res: peopleApiResponse | null =
+      await fetchApi<peopleApiResponse>(apiUrl);
 
     if (!res) return result;
 
