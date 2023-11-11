@@ -1,6 +1,10 @@
 export default {
+  setupFiles: ['../jest.polyfills.js'],
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
