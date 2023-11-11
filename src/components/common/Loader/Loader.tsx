@@ -14,6 +14,7 @@ const Loader: FC = () => {
             fill={'none'}
             strokeWidth={'5'}
             strokeMiterlimit={'10'}
+            data-testid={'circle'}
           />
         </svg>
       </div>
