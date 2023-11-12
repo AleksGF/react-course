@@ -3,6 +3,8 @@ import {
   emptySearchParams,
   fullSearchParams,
 } from '@/test/__mocks__/mockSearchParams';
+import { ITEMS_PER_PAGE } from '@constants/constants';
+import { PageNumber, searchPersonId } from '@/test/__mocks__/mockApiData';
 
 describe('getExtendedSearchParams should return', () => {
   test('the same searchParams when params not provided', () => {
@@ -16,20 +18,20 @@ describe('getExtendedSearchParams should return', () => {
   test('searchParams with added params', () => {
     expect(
       getExtendedSearchParams(emptySearchParams, {
-        limit: '20',
-        page: '3',
+        limit: String(ITEMS_PER_PAGE.DOUBLE),
+        page: String(searchPersonId),
         string_value: 'value',
       }),
     ).toEqual(fullSearchParams);
     expect(
       getExtendedSearchParams(emptySearchParams, {
-        limit: '10',
-        page: '1',
+        limit: String(ITEMS_PER_PAGE.DEFAULT),
+        page: String(PageNumber.FirstPageNumber),
       }),
     ).toEqual(
       new URLSearchParams({
-        limit: '10',
-        page: '1',
+        limit: String(ITEMS_PER_PAGE.DEFAULT),
+        page: String(PageNumber.FirstPageNumber),
       }),
     );
   });

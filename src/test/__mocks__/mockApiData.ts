@@ -543,3 +543,21 @@ export const apiSearch: peopleApiResponse = {
     },
   ],
 };
+
+export const totalApiPeopleCount = apiListPageOne.count;
+
+export enum PageNumber {
+  FirstPageNumber = 1,
+  SecondPageNumber,
+  ThirdPageNumber,
+}
+
+export const searchPersonName = apiSearch.results[0].name;
+export const searchPersonId = 3;
+
+export const personsFromFirstPage = apiListPageOne.results.map(
+  (person) => person.name,
+);
+export const personsFromSecondPage = apiListPageTwo.results.map(
+  (person) => person.name,
+);

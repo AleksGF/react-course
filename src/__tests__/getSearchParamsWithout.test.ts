@@ -3,6 +3,8 @@ import {
   emptySearchParams,
   fullSearchParams,
 } from '@/test/__mocks__/mockSearchParams';
+import { ITEMS_PER_PAGE } from '@constants/constants';
+import { PageNumber } from '@/test/__mocks__/mockApiData';
 
 describe('getSearchParamsWithout should return', () => {
   test('the same searchParams when key not provided', () => {
@@ -34,8 +36,8 @@ describe('getSearchParamsWithout should return', () => {
     );
     expect(getSearchParamsWithout(fullSearchParams, ['string_value'])).toEqual(
       new URLSearchParams({
-        limit: '20',
-        page: '3',
+        limit: String(ITEMS_PER_PAGE.DOUBLE),
+        page: String(PageNumber.ThirdPageNumber),
       }),
     );
   });

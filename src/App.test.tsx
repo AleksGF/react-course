@@ -5,6 +5,12 @@ import userEvent from '@testing-library/user-event';
 import { server } from '@/test/__mocks__/mockServer';
 import App from '@/App';
 import { ITEMS_PER_PAGE } from '@constants/constants';
+import {
+  PageNumber,
+  personsFromFirstPage,
+  personsFromSecondPage,
+  searchPersonName,
+} from '@/test/__mocks__/mockApiData';
 
 describe('App component should', () => {
   beforeAll(() => server.listen());
@@ -43,7 +49,7 @@ describe('App component should', () => {
 
     expect(queryByText('Person Details:')).toBeNull();
 
-    await user.click(getByText('Luke Skywalker'));
+    await user.click(getByText(personsFromFirstPage[0]));
 
     await waitFor(
       () => expect(getByText('Person Details:')).toBeInTheDocument(),
@@ -111,49 +117,55 @@ describe('App component should', () => {
   test('handle page change', async () => {
     const { container, getByText, queryByText } = render(<App />);
 
-    await waitFor(() => expect(getByText('2')).toBeInTheDocument(), {
-      container,
-      mutationObserverOptions: { childList: true },
-    });
-
-    expect(getByText('Luke Skywalker')).toBeInTheDocument();
-    expect(queryByText('Anakin Skywalker')).toBeNull();
-
-    await user.click(getByText('2'));
-
     await waitFor(
-      () => expect(getByText('Anakin Skywalker')).toBeInTheDocument(),
+      () =>
+        expect(
+          getByText(String(PageNumber.SecondPageNumber)),
+        ).toBeInTheDocument(),
       {
         container,
         mutationObserverOptions: { childList: true },
       },
     );
 
-    expect(queryByText('Luke Skywalker')).toBeNull();
+    expect(getByText(personsFromFirstPage[0])).toBeInTheDocument();
+    expect(queryByText(personsFromSecondPage[0])).toBeNull();
 
-    await user.click(getByText('3'));
+    await user.click(getByText(String(PageNumber.SecondPageNumber)));
 
     await waitFor(
-      () => expect(getByText('Luke Skywalker')).toBeInTheDocument(),
+      () => expect(getByText(personsFromSecondPage[0])).toBeInTheDocument(),
       {
         container,
         mutationObserverOptions: { childList: true },
       },
     );
 
-    expect(queryByText('Anakin Skywalker')).toBeNull();
+    expect(queryByText(personsFromFirstPage[0])).toBeNull();
 
-    await user.click(getByText('1'));
+    await user.click(getByText(PageNumber.ThirdPageNumber));
 
     await waitFor(
-      () => expect(getByText('Luke Skywalker')).toBeInTheDocument(),
+      () => expect(getByText(personsFromFirstPage[0])).toBeInTheDocument(),
       {
         container,
         mutationObserverOptions: { childList: true },
       },
     );
 
-    expect(queryByText('Anakin Skywalker')).toBeNull();
+    expect(queryByText(personsFromSecondPage[0])).toBeNull();
+
+    await user.click(getByText(String(PageNumber.FirstPageNumber)));
+
+    await waitFor(
+      () => expect(getByText(personsFromFirstPage[0])).toBeInTheDocument(),
+      {
+        container,
+        mutationObserverOptions: { childList: true },
+      },
+    );
+
+    expect(queryByText(personsFromSecondPage[0])).toBeNull();
   });
 
   test('handle search', async () => {
@@ -170,16 +182,19 @@ describe('App component should', () => {
     const inputElement = getByRole('textbox') as HTMLInputElement;
     const buttonElement = getByText('Search') as HTMLButtonElement;
 
-    expect(getByText('Luke Skywalker')).toBeInTheDocument();
+    expect(getByText(personsFromFirstPage[0])).toBeInTheDocument();
 
     await user.type(inputElement, 'test');
     await user.click(buttonElement);
 
-    await waitFor(() => expect(getByText('R2-D2')).toBeInTheDocument(), {
-      container,
-      mutationObserverOptions: { childList: true },
-    });
+    await waitFor(
+      () => expect(getByText(searchPersonName)).toBeInTheDocument(),
+      {
+        container,
+        mutationObserverOptions: { childList: true },
+      },
+    );
 
-    expect(queryByText('Luke Skywalker')).toBeNull();
+    expect(queryByText(personsFromFirstPage[0])).toBeNull();
   });
 });

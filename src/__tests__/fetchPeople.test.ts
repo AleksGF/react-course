@@ -4,6 +4,9 @@ import {
   apiListPageOne,
   apiListPageTwo,
   apiSearch,
+  PageNumber,
+  searchPersonName,
+  totalApiPeopleCount,
 } from '@/test/__mocks__/mockApiData';
 import { ITEMS_PER_PAGE } from '@constants/constants';
 
@@ -16,30 +19,37 @@ describe('fetchPeople should', () => {
     const res = await fetchPeople();
 
     expect(res.people).toEqual(apiListPageOne.results);
-    expect(res.totalCount).toBe(82);
+    expect(res.totalCount).toBe(totalApiPeopleCount);
   });
 
   test('fetch the correct page', async () => {
-    const res1 = await fetchPeople(1);
-    const res2 = await fetchPeople(2);
+    const res1 = await fetchPeople(PageNumber.FirstPageNumber);
+    const res2 = await fetchPeople(PageNumber.SecondPageNumber);
 
     expect(res1.people).toEqual(apiListPageOne.results);
-    expect(res1.totalCount).toBe(82);
+    expect(res1.totalCount).toBe(totalApiPeopleCount);
     expect(res2.people).toEqual(apiListPageTwo.results);
-    expect(res2.totalCount).toBe(82);
+    expect(res2.totalCount).toBe(totalApiPeopleCount);
   });
 
   test('fetch with search', async () => {
-    const res = await fetchPeople(1, ITEMS_PER_PAGE.DEFAULT, 'R2');
+    const res = await fetchPeople(
+      PageNumber.FirstPageNumber,
+      ITEMS_PER_PAGE.DEFAULT,
+      searchPersonName,
+    );
 
     expect(res.people).toEqual(apiSearch.results);
-    expect(res.totalCount).toBe(1);
+    expect(res.totalCount).toBe(apiSearch.results.length);
   });
 
   test('return double page', async () => {
-    const res = await fetchPeople(1, ITEMS_PER_PAGE.DOUBLE);
+    const res = await fetchPeople(
+      PageNumber.FirstPageNumber,
+      ITEMS_PER_PAGE.DOUBLE,
+    );
 
-    expect(res.people.length).toBe(20);
-    expect(res.totalCount).toBe(82);
+    expect(res.people.length).toBe(ITEMS_PER_PAGE.DOUBLE);
+    expect(res.totalCount).toBe(totalApiPeopleCount);
   });
 });

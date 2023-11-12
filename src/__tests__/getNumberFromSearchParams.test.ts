@@ -3,6 +3,8 @@ import {
   emptySearchParams,
   fullSearchParams,
 } from '@/test/__mocks__/mockSearchParams';
+import { ITEMS_PER_PAGE } from '@constants/constants';
+import { PageNumber } from '@/test/__mocks__/mockApiData';
 
 describe('getNumberFromSearchParams should return:', () => {
   test('null when correct value are not present in searchParams and default value not provided', () => {
@@ -27,9 +29,17 @@ describe('getNumberFromSearchParams should return:', () => {
     );
   });
   test('correct value when correct value are present in searchParams', () => {
-    expect(getNumberFromSearchParams(fullSearchParams, 'limit', 3)).toBe(20);
-    expect(getNumberFromSearchParams(fullSearchParams, 'limit')).toBe(20);
-    expect(getNumberFromSearchParams(fullSearchParams, 'page', 0)).toBe(3);
-    expect(getNumberFromSearchParams(fullSearchParams, 'page')).toBe(3);
+    expect(getNumberFromSearchParams(fullSearchParams, 'limit', 3)).toBe(
+      ITEMS_PER_PAGE.DOUBLE,
+    );
+    expect(getNumberFromSearchParams(fullSearchParams, 'limit')).toBe(
+      ITEMS_PER_PAGE.DOUBLE,
+    );
+    expect(getNumberFromSearchParams(fullSearchParams, 'page', 0)).toBe(
+      PageNumber.ThirdPageNumber,
+    );
+    expect(getNumberFromSearchParams(fullSearchParams, 'page')).toBe(
+      PageNumber.ThirdPageNumber,
+    );
   });
 });

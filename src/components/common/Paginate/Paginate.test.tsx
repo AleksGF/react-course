@@ -1,8 +1,9 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Paginate from '@components/common/Paginate/Paginate';
+import { PageNumber } from '@/test/__mocks__/mockApiData';
 
 const changePageHandler = jest.fn();
 const options = {
@@ -14,18 +15,18 @@ const options = {
 
 describe('Paginate should render correctly', () => {
   test('It should render all pages', async () => {
-    render(<Paginate {...options} />);
+    const { getAllByText } = render(<Paginate {...options} />);
 
-    const pages = screen.getAllByText(/\d/);
+    const pages = getAllByText(/\d/);
 
-    expect(pages.length).toBe(9);
+    expect(pages.length).toBe(options.pageCount);
   });
 
   test('It should handle given function', async () => {
-    render(<Paginate {...options} />);
+    const { getByText } = render(<Paginate {...options} />);
 
     const user = userEvent.setup();
-    const pageButton = screen.getByText('2');
+    const pageButton = getByText(String(PageNumber.SecondPageNumber));
 
     expect(changePageHandler.mock.calls).toHaveLength(0);
 

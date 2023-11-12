@@ -4,14 +4,21 @@ import userEvent from '@testing-library/user-event';
 import { customRender } from '@/test/providers/customRender';
 import NavBar from '@components/NavBar/NavBar';
 import { mockContextsProps } from '@/test/__mocks__/mockContext';
-import { apiListPageOne } from '@/test/__mocks__/mockApiData';
+import {
+  apiListPageOne,
+  PageNumber,
+  personsFromFirstPage,
+  searchPersonId,
+  totalApiPeopleCount,
+} from '@/test/__mocks__/mockApiData';
+import { ITEMS_PER_PAGE } from '@constants/constants';
 
 const contextsPropsWithData = {
   ...mockContextsProps,
   dataListContextProps: {
     ...mockContextsProps.dataListContextProps,
     people: apiListPageOne.results,
-    totalPeopleCount: 82,
+    totalPeopleCount: totalApiPeopleCount,
   },
 };
 
@@ -31,8 +38,8 @@ describe('NavBar should render correctly', () => {
       route: '/',
     });
 
-    expect(getByText('Luke Skywalker')).toBeInTheDocument();
-    expect(getByText('Obi-Wan Kenobi')).toBeInTheDocument();
+    expect(getByText(personsFromFirstPage[0])).toBeInTheDocument();
+    expect(getByText(personsFromFirstPage[7])).toBeInTheDocument();
   });
 
   test('It should render select element when data provided', () => {
@@ -51,24 +58,37 @@ describe('NavBar should render correctly', () => {
       route: '/',
     });
 
-    expect(getByText('1')).toBeInTheDocument();
-    expect(getByText('3')).toBeInTheDocument();
-    expect(getByText('7')).toBeInTheDocument();
-    expect(getByText('9')).toBeInTheDocument();
-    expect(queryByText('11')).toBe(null);
+    expect(getByText(String(PageNumber.FirstPageNumber))).toBeInTheDocument();
+    expect(getByText(String(PageNumber.SecondPageNumber))).toBeInTheDocument();
+    expect(getByText(String(PageNumber.ThirdPageNumber))).toBeInTheDocument();
+    expect(
+      getByText(
+        String(Math.ceil(totalApiPeopleCount / ITEMS_PER_PAGE.DEFAULT)),
+      ),
+    ).toBeInTheDocument();
+    expect(
+      queryByText(
+        String(Math.ceil(totalApiPeopleCount / ITEMS_PER_PAGE.DEFAULT) + 2),
+      ),
+    ).toBeNull();
   });
 
   test('It should render paginate element with double items per page', () => {
     const { getByText, queryByText } = customRender(<NavBar />, {
       contextsProps: contextsPropsWithData,
-      route: '/?limit=20',
+      route: `/?limit=${ITEMS_PER_PAGE.DOUBLE}`,
     });
 
-    expect(getByText('1')).toBeInTheDocument();
-    expect(getByText('3')).toBeInTheDocument();
-    expect(getByText('5')).toBeInTheDocument();
-    expect(queryByText('6')).toBe(null);
-    expect(queryByText('8')).toBe(null);
+    expect(getByText(String(PageNumber.FirstPageNumber))).toBeInTheDocument();
+    expect(getByText(String(PageNumber.ThirdPageNumber))).toBeInTheDocument();
+    expect(
+      getByText(String(Math.ceil(totalApiPeopleCount / ITEMS_PER_PAGE.DOUBLE))),
+    ).toBeInTheDocument();
+    expect(
+      queryByText(
+        String(Math.ceil(totalApiPeopleCount / ITEMS_PER_PAGE.DOUBLE) + 1),
+      ),
+    ).toBeNull();
   });
 
   test('It should handle searchParams for details', async () => {
@@ -79,13 +99,13 @@ describe('NavBar should render correctly', () => {
 
     const user = userEvent.setup();
 
-    const target = getByText('Luke Skywalker') as HTMLElement;
+    const target = getByText(personsFromFirstPage[2]) as HTMLElement;
     expect(target).toBeInTheDocument();
 
     expect(window.location.search).toBe('');
 
     await user.click(target);
-    expect(window.location.search).toBe('?details=1');
+    expect(window.location.search).toBe(`?details=${searchPersonId}`);
 
     await user.click(target);
     expect(window.location.search).toBe('');
