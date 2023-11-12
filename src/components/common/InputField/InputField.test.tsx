@@ -22,7 +22,6 @@ describe('Input field should render correctly', () => {
 
     const user = userEvent.setup();
 
-    //await user.click(screen.getByRole('textbox'));
     expect(handler.mock.calls).toHaveLength(0);
 
     await user.type(screen.getByRole('textbox'), 'test');

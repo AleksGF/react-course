@@ -45,6 +45,7 @@ const NavItem: FC<NavItemProps> = (props) => {
         onClick={useCallback(() => {
           clickHandler(personId, isActive);
         }, [clickHandler, isActive, personId])}
+        data-testid={'person-item'}
       >
         {person.name}
       </div>

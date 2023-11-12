@@ -44,6 +44,7 @@ const PersonDetails: FC = () => {
         alt={'Close details'}
         width={'24'}
         onClick={closeDetailsHandler}
+        data-testid={'details-close-btn'}
       />
       <div className={'details__content'}>
         <h3>Person Details:</h3>

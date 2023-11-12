@@ -43,7 +43,6 @@ describe('Select should render correctly', () => {
 
     expect(changeHandler.mock.calls).toHaveLength(0);
 
-    //await user.click(screen.getByRole('combobox'));
     expect(
       await (screen.getByRole('combobox') as HTMLSelectElement).value,
     ).toBe(String(ITEMS_PER_PAGE.DEFAULT));

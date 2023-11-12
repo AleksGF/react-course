@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { getUseContextHook } from '@helpers/getUseContextHook';
 import type { Person } from '@/types/apiTypes';
 
-interface DataListContextInterface {
+export interface DataListContextInterface {
   people: Person[];
   setPeople: (newPeople: Person[]) => void;
   totalPeopleCount: number;

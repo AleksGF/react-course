@@ -3,7 +3,7 @@ import { getUseContextHook } from '@helpers/getUseContextHook';
 
 export type SearchValue = string;
 
-interface SearchContextInterface {
+export interface SearchContextInterface {
   searchValue: SearchValue;
   setSearchValue: (value: string) => void;
 }

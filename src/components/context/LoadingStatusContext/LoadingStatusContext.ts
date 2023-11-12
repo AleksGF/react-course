@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { getUseContextHook } from '@helpers/getUseContextHook';
 
-interface LoadingStatusContextInterface {
+export interface LoadingStatusContextInterface {
   isLoading: boolean;
   setIsLoading: (status: boolean) => void;
 }
