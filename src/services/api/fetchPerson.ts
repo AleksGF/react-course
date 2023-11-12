@@ -1,15 +1,9 @@
+import { fetchApi } from '@services/api/fetchApi';
+import { API_URL } from '@constants/constants';
 import type { Person } from '@/types/apiTypes';
 
 export const fetchPerson = async (personId: string): Promise<Person | null> => {
-  const personApiUrl = new URL(`https://swapi.dev/api/people/${personId}/`);
+  const personApiUrl = `${API_URL}${personId}/`;
 
-  try {
-    const response = await fetch(personApiUrl);
-
-    if (!response.ok) return null;
-
-    return await response.json();
-  } catch (error) {
-    return null;
-  }
+  return await fetchApi(personApiUrl);
 };
