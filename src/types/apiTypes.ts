@@ -17,7 +17,14 @@ export interface Person {
   url: string;
 }
 
-export interface peopleApiResponse {
+interface PeopleApiRequestParams {
+  searchValue: string;
+  page: number;
+}
+
+export type PeopleApiRequest = Partial<PeopleApiRequestParams>;
+
+export interface PeopleApiResponse {
   count: number;
   next: string | null;
   previous: string | null;

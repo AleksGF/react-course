@@ -1,20 +1,18 @@
 import React, { type FC } from 'react';
-import DataListContextProvider from '@components/context/DataListContext/DataListContextProvider';
-import LoadingStatusContextProvider from '@components/context/LoadingStatusContext/LoadingStatusContextProvider';
-import SearchContextProvider from '@components/context/SearchContext/SearchContextProvider';
-import AppWithRouting from '@components/AppWithRouting/AppWithRouting';
-import '@/App.scss';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { routes } from '@src/routes/routes';
+import '@src/App.scss';
+import { useAppDispatch } from '@src/hook/hook';
+import { setInitializationStatus } from '@src/store/appSlice';
+
+const router = createBrowserRouter(routes);
 
 const App: FC = () => {
-  return (
-    <SearchContextProvider>
-      <DataListContextProvider>
-        <LoadingStatusContextProvider>
-          <AppWithRouting />
-        </LoadingStatusContextProvider>
-      </DataListContextProvider>
-    </SearchContextProvider>
-  );
+  const dispatch = useAppDispatch();
+
+  dispatch(setInitializationStatus(true));
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;

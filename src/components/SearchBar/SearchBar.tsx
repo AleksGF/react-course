@@ -5,15 +5,20 @@ import React, {
   useState,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getExtendedSearchParams } from '@helpers/getExtendedSearchParams';
-import { useSearchContext } from '@components/context/SearchContext/SearchContext';
+import { getExtendedSearchParams } from '@src/helpers/getExtendedSearchParams';
+import { useAppDispatch, useAppSelector } from '@src/hook/hook';
+import { setSearchValue } from '@src/store/mainSlice';
 import InputField from '@components/common/InputField/InputField';
 import Button from '@components/common/Button/Button';
-import { FIRST_PAGE } from '@constants/constants';
+import {
+  FIRST_PAGE,
+  LOCAL_STORAGE_SEARCH_VALUE_KEY,
+} from '@src/constants/constants';
 import './SearchBar.scss';
 
 const SearchBar: FC = () => {
-  const { searchValue, setSearchValue } = useSearchContext();
+  const dispatch = useAppDispatch();
+  const { searchValue } = useAppSelector((state) => state.main);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -24,15 +29,15 @@ const SearchBar: FC = () => {
 
     const newValue = inputValue.trim();
 
-    localStorage.setItem('rc_lastSearch', newValue);
-
     setSearchParams(
       getExtendedSearchParams(searchParams, {
         page: String(FIRST_PAGE),
       }),
     );
 
-    setSearchValue(newValue);
+    localStorage.setItem(LOCAL_STORAGE_SEARCH_VALUE_KEY, newValue);
+
+    dispatch(setSearchValue(newValue));
   };
 
   return (

@@ -12,7 +12,7 @@ export default {
   moduleNameMapper: {
     '^.+\\.(css|sass|scss)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js',
-    '^@/(.*)$': '<rootDir>/$1',
+    '^@src/(.*)$': '<rootDir>/$1',
     '^@pages/(.*)$': '<rootDir>/pages/$1',
     '^@components/(.*)$': '<rootDir>/components/$1',
     '^@assets/(.*)$': '<rootDir>/assets/$1',

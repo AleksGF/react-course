@@ -1,40 +1,31 @@
-import React, { useState, type FC, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { fetchPerson } from '@services/api/fetchPerson';
-import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
-import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
+import React, { type FC } from 'react';
+import { hidePersonDetails } from '@src/store/mainSlice';
+import { useAppDispatch } from '@src/hook/hook';
+import { useGetPersonQuery } from '@src/services/api/apiClient';
 import Loader from '@components/common/Loader/Loader';
-import type { Person } from '@/types/apiTypes';
-import CloseSvg from '@assets/close.svg';
+import type { Person } from '@src/types/apiTypes';
+import CloseSvg from '@src/assets/close.svg';
 import './PersonDetails.scss';
 
-const PersonDetails: FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+interface PersonDetailsProps {
+  personId: number;
+}
 
-  const [person, setPerson] = useState<Person | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const PersonDetails: FC<PersonDetailsProps> = (props) => {
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const personId = getNumberFromSearchParams(searchParams, 'details', 0);
-
-    if (personId) {
-      setIsLoading(true);
-
-      fetchPerson(String(personId))
-        .then(setPerson)
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-  }, [searchParams]);
+  const { personId } = props;
 
   const closeDetailsHandler = (): void => {
-    setSearchParams(getSearchParamsWithout(searchParams, ['details']));
+    dispatch(hidePersonDetails());
+  };
+
+  const { data, isLoading } = useGetPersonQuery(personId) as {
+    data: Person;
+    isLoading: boolean;
   };
 
   if (isLoading) return <Loader />;
-
-  if (!person) return null;
 
   return (
     <div className={'details__wrapper'}>
@@ -47,16 +38,21 @@ const PersonDetails: FC = () => {
         data-testid={'details-close-btn'}
       />
       <div className={'details__content'}>
-        <h3>Person Details:</h3>
-        <p>{`${person.name} was born in ${person.birth_year || 'n/a'}.`}</p>
-        <p>{`${
-          person.gender === 'male'
-            ? 'His'
-            : person.gender === 'female'
-            ? 'Her'
-            : 'Its'
-        } height is ${person.height || 'n/a'}.`}</p>
-        <p>{`Films count with is ${String(person.films?.length || 0)}.`}</p>
+        {!data && <h3>No one found</h3>}
+        {!!data && (
+          <>
+            <h3>Person Details:</h3>
+            <p>{`${data.name} was born in ${data.birth_year || 'n/a'}.`}</p>
+            <p>{`${
+              data.gender === 'male'
+                ? 'His'
+                : data.gender === 'female'
+                ? 'Her'
+                : 'Its'
+            } height is ${data.height || 'n/a'}.`}</p>
+            <p>{`Films count with is ${String(data.films?.length || 0)}.`}</p>
+          </>
+        )}
       </div>
     </div>
   );

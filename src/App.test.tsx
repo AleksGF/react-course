@@ -11,6 +11,8 @@ import {
   personsFromSecondPage,
   searchPersonName,
 } from '@/test/__mocks__/mockApiData';
+import { createMemoryRouter, RouterProvider } from 'react-router';
+import { routes } from '@src/routes/routes';
 
 describe('App component should', () => {
   beforeAll(() => server.listen());
@@ -196,5 +198,17 @@ describe('App component should', () => {
     );
 
     expect(queryByText(personsFromFirstPage[0])).toBeNull();
+  });
+});
+
+describe('Routing should work correctly', () => {
+  test('404 page should be rendered with incorrect url', () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ['/bad-route'],
+    });
+
+    const { getByText } = render(<RouterProvider router={router} />);
+
+    expect(getByText('404 - Page Not Found')).toBeInTheDocument();
   });
 });
