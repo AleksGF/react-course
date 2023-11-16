@@ -24,6 +24,10 @@ interface PeopleApiRequestParams {
 
 export type PeopleApiRequest = Partial<PeopleApiRequestParams>;
 
+export interface MultiPagePeopleApiRequest extends PeopleApiRequest {
+  itemsPerPage: number;
+}
+
 export interface PeopleApiResponse {
   count: number;
   next: string | null;

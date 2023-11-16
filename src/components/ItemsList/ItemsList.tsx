@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@src/hook/hook';
 import { useSearchParams } from 'react-router-dom';
 import { getNumberFromSearchParams } from '@src/helpers/getNumberFromSearchParams';
 import { FIRST_PAGE } from '@src/constants/constants';
-import { useGetPeopleQuery } from '@src/services/api/peopleApi';
+import { useGetMultiPagePeopleQuery } from '@src/services/api/peopleApi';
 import { setLoadingStatus } from '@src/store/appSlice';
 import Item from '@components/ItemsList/Item/Item';
 import Paginate from '@components/common/Paginate/Paginate';
@@ -23,8 +23,8 @@ const ItemsList: FC = () => {
   const pageNumber =
     pageFromURL && pageFromURL > FIRST_PAGE ? pageFromURL : FIRST_PAGE;
 
-  const { data, isFetching } = useGetPeopleQuery(
-    { searchValue, page: pageNumber },
+  const { data, isFetching } = useGetMultiPagePeopleQuery(
+    { searchValue, page: pageNumber, itemsPerPage },
     { skip: !isInitialized },
   );
 
