@@ -7,7 +7,7 @@ import React, {
 import { useSearchParams } from 'react-router-dom';
 import { getExtendedSearchParams } from '@src/helpers/getExtendedSearchParams';
 import { useAppDispatch, useAppSelector } from '@src/hook/hook';
-import { saveSearchValue } from '@src/store/mainSlice';
+import { hidePersonDetails, saveSearchValue } from '@src/store/mainSlice';
 import InputField from '@components/common/InputField/InputField';
 import Button from '@components/common/Button/Button';
 import { FIRST_PAGE } from '@src/constants/constants';
@@ -32,6 +32,7 @@ const SearchBar: FC = () => {
       }),
     );
 
+    dispatch(hidePersonDetails());
     dispatch(saveSearchValue(newValue));
   };
 
