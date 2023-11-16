@@ -32,7 +32,7 @@ const Paginate: FC<PaginateProps> = (props) => {
 
       dispatch(hidePersonDetails());
     },
-    [pageNumber, searchParams, setSearchParams],
+    [dispatch, pageNumber, searchParams, setSearchParams],
   );
 
   return (
@@ -42,7 +42,7 @@ const Paginate: FC<PaginateProps> = (props) => {
       activeClassName={'paginate__page_active'}
       previousClassName={'nav-link'}
       nextClassName={'nav-link'}
-      forcePage={pageNumber}
+      forcePage={pageNumber - 1}
       breakLabel={'...'}
       nextLabel={'>'}
       onPageChange={changePageHandler}

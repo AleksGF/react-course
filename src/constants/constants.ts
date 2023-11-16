@@ -1,6 +1,6 @@
 export const LOCAL_STORAGE_SEARCH_VALUE_KEY = 'rc_lastSearch';
 
-export const API_URL = 'https://swapi.dev/api/people/';
+export const API_URL = 'https://swapi.dev/api/';
 
 export enum ITEMS_PER_PAGE {
   DEFAULT = 10,

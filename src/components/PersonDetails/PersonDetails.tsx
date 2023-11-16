@@ -1,9 +1,8 @@
 import React, { type FC } from 'react';
 import { hidePersonDetails } from '@src/store/mainSlice';
 import { useAppDispatch } from '@src/hook/hook';
-import { useGetPersonQuery } from '@src/services/api/apiClient';
+import { useGetPersonQuery } from '@src/services/api/peopleApi';
 import Loader from '@components/common/Loader/Loader';
-import type { Person } from '@src/types/apiTypes';
 import CloseSvg from '@src/assets/close.svg';
 import './PersonDetails.scss';
 
@@ -20,12 +19,9 @@ const PersonDetails: FC<PersonDetailsProps> = (props) => {
     dispatch(hidePersonDetails());
   };
 
-  const { data, isLoading } = useGetPersonQuery(personId) as {
-    data: Person;
-    isLoading: boolean;
-  };
+  const { data, isFetching } = useGetPersonQuery(personId);
 
-  if (isLoading) return <Loader />;
+  if (isFetching) return <Loader />;
 
   return (
     <div className={'details__wrapper'}>

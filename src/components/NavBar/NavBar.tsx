@@ -39,7 +39,7 @@ const NavBar: FC = () => {
         }),
       );
 
-      dispatch(setItemsPerPage(e.target.value));
+      dispatch(setItemsPerPage(Number(e.target.value)));
     },
     [dispatch, searchParams, setSearchParams],
   );

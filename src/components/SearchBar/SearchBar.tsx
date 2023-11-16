@@ -7,13 +7,10 @@ import React, {
 import { useSearchParams } from 'react-router-dom';
 import { getExtendedSearchParams } from '@src/helpers/getExtendedSearchParams';
 import { useAppDispatch, useAppSelector } from '@src/hook/hook';
-import { setSearchValue } from '@src/store/mainSlice';
+import { saveSearchValue } from '@src/store/mainSlice';
 import InputField from '@components/common/InputField/InputField';
 import Button from '@components/common/Button/Button';
-import {
-  FIRST_PAGE,
-  LOCAL_STORAGE_SEARCH_VALUE_KEY,
-} from '@src/constants/constants';
+import { FIRST_PAGE } from '@src/constants/constants';
 import './SearchBar.scss';
 
 const SearchBar: FC = () => {
@@ -35,9 +32,7 @@ const SearchBar: FC = () => {
       }),
     );
 
-    localStorage.setItem(LOCAL_STORAGE_SEARCH_VALUE_KEY, newValue);
-
-    dispatch(setSearchValue(newValue));
+    dispatch(saveSearchValue(newValue));
   };
 
   return (

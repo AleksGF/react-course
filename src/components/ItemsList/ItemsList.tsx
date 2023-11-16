@@ -3,9 +3,8 @@ import { useAppDispatch, useAppSelector } from '@src/hook/hook';
 import { useSearchParams } from 'react-router-dom';
 import { getNumberFromSearchParams } from '@src/helpers/getNumberFromSearchParams';
 import { FIRST_PAGE } from '@src/constants/constants';
-import { useGetPeopleQuery } from '@src/services/api/apiClient';
+import { useGetPeopleQuery } from '@src/services/api/peopleApi';
 import { setLoadingStatus } from '@src/store/appSlice';
-import { PeopleApiResponse } from '@src/types/apiTypes';
 import Item from '@components/ItemsList/Item/Item';
 import Paginate from '@components/common/Paginate/Paginate';
 
@@ -22,16 +21,16 @@ const ItemsList: FC = () => {
     FIRST_PAGE,
   );
   const pageNumber =
-    pageFromURL && pageFromURL >= FIRST_PAGE ? pageFromURL : FIRST_PAGE;
+    pageFromURL && pageFromURL > FIRST_PAGE ? pageFromURL : FIRST_PAGE;
 
-  const { data, isLoading } = useGetPeopleQuery(
-    { searchValue, pageNumber },
+  const { data, isFetching } = useGetPeopleQuery(
+    { searchValue, page: pageNumber },
     { skip: !isInitialized },
-  ) as { data?: PeopleApiResponse; isLoading: boolean };
+  );
 
   useEffect(() => {
-    dispatch(setLoadingStatus(isLoading));
-  }, [dispatch, isLoading]);
+    dispatch(setLoadingStatus(isFetching));
+  }, [dispatch, isFetching]);
 
   if (!data || !data.results?.length) {
     return <h2 className={'nav__title'}>No one was found</h2>;
@@ -47,7 +46,7 @@ const ItemsList: FC = () => {
         />
       ))}
       <Paginate
-        pageNumber={pageNumber ? pageNumber - 1 : 0}
+        pageNumber={pageNumber ? pageNumber : 1}
         totalItemsCount={data.count}
         itemsPerPage={itemsPerPage}
       />

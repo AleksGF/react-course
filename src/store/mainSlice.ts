@@ -25,6 +25,17 @@ export const getSavedSearchValue = createAsyncThunk(
   },
 );
 
+export const saveSearchValue = createAsyncThunk(
+  'main/saveSearchValue',
+  (value: string, { dispatch }) => {
+    const newValue = value.trim();
+
+    localStorage.setItem(LOCAL_STORAGE_SEARCH_VALUE_KEY, newValue);
+
+    dispatch(setSearchValue(newValue));
+  },
+);
+
 export const mainSlice = createSlice({
   name: 'main',
   initialState,
