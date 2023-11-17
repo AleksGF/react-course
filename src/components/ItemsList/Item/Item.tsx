@@ -1,5 +1,5 @@
 import React, { type FC, useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '@src/hook/hook.js';
+import { useAppDispatch, useAppSelector } from '@src/hook/hook';
 import { hidePersonDetails, showPersonDetails } from '@src/store/mainSlice';
 import { getPersonIdFromURL } from '@src/helpers/getPersonIdFromURL';
 import type { Person } from '@src/types/apiTypes';

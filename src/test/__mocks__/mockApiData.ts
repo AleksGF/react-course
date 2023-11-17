@@ -1,6 +1,6 @@
-import { type peopleApiResponse, Person } from '@/types/apiTypes';
+import type { PeopleApiResponse, Person } from '@src/types/apiTypes';
 
-export const apiListPageOne: peopleApiResponse = {
+export const apiListPageOne: PeopleApiResponse = {
   count: 82,
   next: 'https://swapi.dev/api/people/?page=2',
   previous: null,
@@ -244,7 +244,7 @@ export const apiListPageOne: peopleApiResponse = {
   ],
 };
 
-export const apiListPageTwo: peopleApiResponse = {
+export const apiListPageTwo: PeopleApiResponse = {
   count: 82,
   next: 'https://swapi.dev/api/people/?page=3',
   previous: 'https://swapi.dev/api/people/?page=1',
@@ -511,7 +511,7 @@ export const apiPerson: Person = {
   url: 'https://swapi.dev/api/people/1/',
 };
 
-export const apiSearch: peopleApiResponse = {
+export const apiSearch: PeopleApiResponse = {
   count: 1,
   next: null,
   previous: null,

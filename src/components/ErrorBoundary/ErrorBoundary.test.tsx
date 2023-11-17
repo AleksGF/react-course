@@ -2,7 +2,7 @@ import React from 'react';
 import { jest } from '@jest/globals';
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from '@src/components/ErrorBoundary/ErrorBoundary';
 
 jest.mock('react-router', () => ({
   ...(jest.requireActual('react-router') as object),

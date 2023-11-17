@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Button from '@components/common/Button/Button';
+import Button from '@src/components/common/Button/Button';
 
 const handler = jest.fn();
 const titleText: string = 'Button Title';

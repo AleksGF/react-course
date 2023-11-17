@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Select from '@components/common/Select/Select';
-import { ITEMS_PER_PAGE } from '@constants/constants';
+import { ITEMS_PER_PAGE } from '@src/constants/constants';
 
 const changeHandler = jest.fn();
 const title: string = 'Title text';

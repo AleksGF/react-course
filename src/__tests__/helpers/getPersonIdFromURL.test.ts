@@ -1,4 +1,4 @@
-import { getPersonIdFromURL } from '@helpers/getPersonIdFromURL';
+import { getPersonIdFromURL } from '@src/helpers/getPersonIdFromURL';
 
 describe('getPersonIdFromURL should return', () => {
   test('value with type number', () => {

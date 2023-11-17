@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import InputField from '@components/common/InputField/InputField';
+import InputField from '@src/components/common/InputField/InputField';
 
 const handler = jest.fn();
 const fieldValue = 'Input Field Text';

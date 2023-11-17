@@ -1,16 +1,17 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { server } from '@/test/__mocks__/mockServer';
-import App from '@/App';
-import { ITEMS_PER_PAGE } from '@constants/constants';
+import { server } from '@src/test/__mocks__/mockServer';
+import { customRender } from '@src/test/providers/customRender';
+import App from '@src/App';
+import { ITEMS_PER_PAGE } from '@src/constants/constants';
 import {
   PageNumber,
   personsFromFirstPage,
   personsFromSecondPage,
   searchPersonName,
-} from '@/test/__mocks__/mockApiData';
+} from '@src/test/__mocks__/mockApiData';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import { routes } from '@src/routes/routes';
 
@@ -22,7 +23,7 @@ describe('App component should', () => {
 
   test('render correctly', async () => {
     const { container, getByText, getByRole, getByTestId, queryByText } =
-      render(<App />);
+      customRender(<App />);
 
     expect(getByTestId('circle')).toBeInTheDocument();
     expect(getByRole('textbox')).toBeInTheDocument();
@@ -39,7 +40,9 @@ describe('App component should', () => {
   });
 
   test('handle person details', async () => {
-    const { container, getByText, queryByText, getByAltText } = render(<App />);
+    const { container, getByText, queryByText, getByAltText } = customRender(
+      <App />,
+    );
 
     await waitFor(
       () => expect(getByText('Star War Persons')).toBeInTheDocument(),
@@ -70,7 +73,7 @@ describe('App component should', () => {
   });
 
   test('handle person per page change', async () => {
-    const { container, getByRole, queryAllByTestId } = render(<App />);
+    const { container, getByRole, queryAllByTestId } = customRender(<App />);
 
     await waitFor(
       () =>
@@ -117,7 +120,7 @@ describe('App component should', () => {
   });
 
   test('handle page change', async () => {
-    const { container, getByText, queryByText } = render(<App />);
+    const { container, getByText, queryByText } = customRender(<App />);
 
     await waitFor(
       () =>
@@ -171,7 +174,9 @@ describe('App component should', () => {
   });
 
   test('handle search', async () => {
-    const { container, getByRole, getByText, queryByText } = render(<App />);
+    const { container, getByRole, getByText, queryByText } = customRender(
+      <App />,
+    );
 
     await waitFor(
       () => expect(getByText('Star War Persons')).toBeInTheDocument(),
@@ -207,7 +212,7 @@ describe('Routing should work correctly', () => {
       initialEntries: ['/bad-route'],
     });
 
-    const { getByText } = render(<RouterProvider router={router} />);
+    const { getByText } = customRender(<RouterProvider router={router} />);
 
     expect(getByText('404 - Page Not Found')).toBeInTheDocument();
   });

@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@src/hook/hook';
 import { hidePersonDetails, setItemsPerPage } from '@src/store/mainSlice';
 import { getExtendedSearchParams } from '@src/helpers/getExtendedSearchParams';
 import Select from '@components/common/Select/Select';
-import ItemsList from '@components/ItemsList/ItemsList.js';
+import ItemsList from '@components/ItemsList/ItemsList';
 import { FIRST_PAGE, ITEMS_PER_PAGE } from '@src/constants/constants';
 import './NavBar.scss';
 

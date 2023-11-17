@@ -1,15 +1,15 @@
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
-import { API_URL } from '@constants/constants';
+import { API_URL } from '@src/constants/constants';
 import {
   apiListPageOne,
   apiListPageTwo,
   apiPerson,
   apiSearch,
-} from '@/test/__mocks__/mockApiData';
+} from '@src/test/__mocks__/mockApiData';
 
 const handlers = [
-  http.get(`${API_URL}`, ({ request }) => {
+  http.get(`${API_URL}people/`, ({ request }) => {
     const url = new URL(request.url);
 
     const pageNumber = url.searchParams.get('page');
@@ -22,7 +22,7 @@ const handlers = [
 
     return HttpResponse.json(apiListPageOne);
   }),
-  http.get(`${API_URL}:id`, () => HttpResponse.json(apiPerson)),
+  http.get(`${API_URL}people/:id`, () => HttpResponse.json(apiPerson)),
 ];
 
 export const server = setupServer(...handlers);

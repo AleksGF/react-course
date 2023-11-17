@@ -1,10 +1,10 @@
-import { getNumberFromSearchParams } from '@helpers/getNumberFromSearchParams';
+import { getNumberFromSearchParams } from '@src/helpers/getNumberFromSearchParams';
 import {
   emptySearchParams,
   fullSearchParams,
-} from '@/test/__mocks__/mockSearchParams';
-import { ITEMS_PER_PAGE } from '@constants/constants';
-import { PageNumber } from '@/test/__mocks__/mockApiData';
+} from '@src/test/__mocks__/mockSearchParams';
+import { ITEMS_PER_PAGE } from '@src/constants/constants';
+import { PageNumber } from '@src/test/__mocks__/mockApiData';
 
 describe('getNumberFromSearchParams should return:', () => {
   test('null when correct value are not present in searchParams and default value not provided', () => {

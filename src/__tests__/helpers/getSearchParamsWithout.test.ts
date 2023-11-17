@@ -1,10 +1,10 @@
-import { getSearchParamsWithout } from '@helpers/getSearchParamsWithout';
+import { getSearchParamsWithout } from '@src/helpers/getSearchParamsWithout';
 import {
   emptySearchParams,
   fullSearchParams,
-} from '@/test/__mocks__/mockSearchParams';
-import { ITEMS_PER_PAGE } from '@constants/constants';
-import { PageNumber } from '@/test/__mocks__/mockApiData';
+} from '@src/test/__mocks__/mockSearchParams';
+import { ITEMS_PER_PAGE } from '@src/constants/constants';
+import { PageNumber } from '@src/test/__mocks__/mockApiData';
 
 describe('getSearchParamsWithout should return', () => {
   test('the same searchParams when key not provided', () => {

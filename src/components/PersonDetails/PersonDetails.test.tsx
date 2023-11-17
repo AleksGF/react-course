@@ -2,31 +2,21 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { customRender } from '@/test/providers/customRender';
-import { server } from '@/test/__mocks__/mockServer';
-import PersonDetails from '@components/PersonDetails/PersonDetails';
-import { mockContextsProps } from '@/test/__mocks__/mockContext';
+import { customRender } from '@src/test/providers/customRender';
+import { server } from '@src/test/__mocks__/mockServer';
+import PersonDetails from '@src/components/PersonDetails/PersonDetails';
+import { stateWithInitialization } from '@src/test/__mocks__/mockStore';
 
 describe('PersonDetails should render correctly', () => {
   beforeAll(() => server.listen());
   afterEach(() => server.resetHandlers());
   afterAll(() => server.close());
 
-  test('it should return empty element when no details param', () => {
-    const { container } = customRender(<PersonDetails />, {
-      contextsProps: mockContextsProps,
-      route: '/',
-    });
-
-    expect(container).toBeEmptyDOMElement();
-  });
-
   test('it should render loader when fetching data, person details after', async () => {
     const { container, getByTestId, getByText } = customRender(
-      <PersonDetails />,
+      <PersonDetails personId={1} />,
       {
-        contextsProps: mockContextsProps,
-        route: '/?details=1',
+        preloadedState: stateWithInitialization,
       },
     );
 
@@ -42,10 +32,12 @@ describe('PersonDetails should render correctly', () => {
   });
 
   test('it should render and handle close button', async () => {
-    const { container, queryByTestId } = customRender(<PersonDetails />, {
-      contextsProps: mockContextsProps,
-      route: '/?details=1',
-    });
+    const { container, queryByTestId } = customRender(
+      <PersonDetails personId={1} />,
+      {
+        preloadedState: stateWithInitialization,
+      },
+    );
 
     const user = userEvent.setup();
 

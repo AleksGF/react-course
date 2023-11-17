@@ -1,9 +1,9 @@
 import React, { type FC, useCallback } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '@src/hook/hook.js';
-import { getExtendedSearchParams } from '@src/helpers/getExtendedSearchParams.js';
-import { hidePersonDetails } from '@src/store/mainSlice.js';
+import { useAppDispatch } from '@src/hook/hook';
+import { getExtendedSearchParams } from '@src/helpers/getExtendedSearchParams';
+import { hidePersonDetails } from '@src/store/mainSlice';
 import './Paginate.scss';
 
 interface PaginateProps {
