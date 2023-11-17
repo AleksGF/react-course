@@ -62,3 +62,5 @@ export const {
   showPersonDetails,
   hidePersonDetails,
 } = mainSlice.actions;
+
+export default mainSlice.reducer;

@@ -26,3 +26,5 @@ export const appSlice = createSlice({
 });
 
 export const { setInitializationStatus, setLoadingStatus } = appSlice.actions;
+
+export default appSlice.reducer;

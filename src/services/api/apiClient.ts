@@ -13,3 +13,5 @@ export const apiClient = createApi({
   baseQuery: fetchBaseQuery({ baseUrl, prepareHeaders }),
   endpoints: () => ({}),
 });
+
+export default apiClient.reducer;
