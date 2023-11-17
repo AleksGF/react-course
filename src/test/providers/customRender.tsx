@@ -1,53 +1,52 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import React, {
+  type FC,
+  type PropsWithChildren,
+  type ReactElement,
+} from 'react';
 import '@testing-library/jest-dom';
 import {
   render,
   type RenderOptions,
-  type Queries,
   type RenderResult,
 } from '@testing-library/react';
-import {
-  SearchContext,
-  type SearchContextInterface,
-} from '@components/context/SearchContext/SearchContext';
-import {
-  DataListContext,
-  type DataListContextInterface,
-} from '@components/context/DataListContext/DataListContext';
-import {
-  LoadingStatusContext,
-  type LoadingStatusContextInterface,
-} from '@components/context/LoadingStatusContext/LoadingStatusContext';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import type { PreloadedState } from '@reduxjs/toolkit';
+import appReducer from '@src/store/appSlice';
+import mainReducer from '@src/store/mainSlice';
+import apiReducer, { apiClient } from '@src/services/api/apiClient';
+import { initialState } from '@src/test/__mocks__/mockStore';
+import type { RootState, AppStore } from '@src/store/store';
 
-interface ContextsProps {
-  searchContextProps: SearchContextInterface;
-  dataListContextProps: DataListContextInterface;
-  loadingStatusContextProps: LoadingStatusContextInterface;
+interface CustomRenderProps extends RenderOptions {
+  preloadedState?: PreloadedState<RootState>;
+  store?: AppStore;
 }
 
-interface CustomRenderProps
-  extends RenderOptions<Queries, HTMLElement, HTMLElement> {
-  contextsProps: ContextsProps;
-  route: string;
+interface RenderResultWithStore extends RenderResult {
+  store: AppStore;
 }
 
 export const customRender = (
-  ui: React.ReactElement,
-  { contextsProps, route, ...renderOptions }: CustomRenderProps,
-): RenderResult<Queries, HTMLElement, HTMLElement> => {
-  window.history.pushState({}, 'Test page', route);
-
-  return render(
-    <SearchContext.Provider value={contextsProps.searchContextProps}>
-      <LoadingStatusContext.Provider
-        value={contextsProps.loadingStatusContextProps}
-      >
-        <DataListContext.Provider value={contextsProps.dataListContextProps}>
-          {ui}
-        </DataListContext.Provider>
-      </LoadingStatusContext.Provider>
-    </SearchContext.Provider>,
-    { ...renderOptions, wrapper: BrowserRouter },
+  ui: ReactElement,
+  {
+    preloadedState = initialState,
+    store = configureStore({
+      reducer: {
+        app: appReducer,
+        main: mainReducer,
+        api: apiReducer,
+      },
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(apiClient.middleware),
+      preloadedState,
+    }),
+    ...renderOptions
+  }: CustomRenderProps = {},
+): RenderResultWithStore => {
+  const Wrapper: FC<PropsWithChildren> = ({ children }): ReactElement => (
+    <Provider store={store}>{children}</Provider>
   );
+
+  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 };
