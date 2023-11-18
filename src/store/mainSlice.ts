@@ -4,7 +4,7 @@ import {
   LOCAL_STORAGE_SEARCH_VALUE_KEY,
 } from '@src/constants/constants';
 
-interface MainState {
+export interface MainState {
   searchValue: string;
   itemsPerPage: ITEMS_PER_PAGE;
   detailsView: number | null;
