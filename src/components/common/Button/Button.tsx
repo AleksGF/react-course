@@ -6,7 +6,7 @@ type ButtonClassType = 'submit-button' | 'error-button';
 interface ButtonProps {
   title: string;
   classType: ButtonClassType;
-  clickHandler?: () => void;
+  clickHandler?: VoidFunction;
 }
 
 const Button: FC<ButtonProps> = (props) => {

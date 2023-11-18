@@ -12,6 +12,10 @@ interface PaginateProps {
   itemsPerPage: number;
 }
 
+interface ChangePageValue {
+  selected: number;
+}
+
 const Paginate: FC<PaginateProps> = (props) => {
   const dispatch = useAppDispatch();
 
@@ -19,7 +23,7 @@ const Paginate: FC<PaginateProps> = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const changePageHandler = useCallback(
-    (e: { selected: number }) => {
+    (e: ChangePageValue) => {
       const nextPage = e.selected + 1;
 
       if (pageNumber === nextPage) return;
