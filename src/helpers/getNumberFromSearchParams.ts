@@ -6,8 +6,7 @@ export const getNumberFromSearchParams = (
   const value = searchParams.get(paramKey);
   const numberValue = Number(value);
 
-  if (!value || isNaN(numberValue))
-    return defaultValue !== undefined ? defaultValue : null;
+  if (!value || isNaN(numberValue)) return defaultValue ?? null;
 
   return numberValue;
 };
