@@ -11,6 +11,7 @@ const prepareHeaders = (headers: Headers): Headers => {
 export const apiClient = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl, prepareHeaders }),
+  keepUnusedDataFor: 0,
   endpoints: () => ({}),
 });
 
