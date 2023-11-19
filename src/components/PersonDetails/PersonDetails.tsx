@@ -25,7 +25,7 @@ const PersonDetails: FC<PersonDetailsProps> = (props) => {
 
   useEffect(() => {
     dispatch(setDetailsLoadingStatus(isFetching));
-  }, [isFetching]);
+  }, [dispatch, isFetching]);
 
   if (isDetailsLoading) return <Loader />;
 
