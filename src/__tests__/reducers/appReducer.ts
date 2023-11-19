@@ -1,22 +1,30 @@
 import reducer, {
   setInitializationStatus,
   setLoadingStatus,
+  setDetailsLoadingStatus,
   type AppState,
 } from '@src/store/appSlice';
+import {
+  initialState as mockInitialState,
+  stateWithInitialization as mockInitializedState,
+} from '@src/test/__mocks__/mockStore';
 
 const initialState: AppState = {
-  isInitialized: false,
-  isLoading: false,
+  ...mockInitialState.app,
 };
 
 const initializedState: AppState = {
-  isInitialized: true,
-  isLoading: false,
+  ...mockInitializedState.app,
 };
 
 const loadingState: AppState = {
-  isInitialized: true,
+  ...initializedState,
   isLoading: true,
+};
+
+const detailsLoadingState: AppState = {
+  ...initializedState,
+  isDetailsLoading: true,
 };
 
 describe('appReducer should work correctly', () => {
@@ -42,5 +50,15 @@ describe('appReducer should work correctly', () => {
     expect(reducer(loadingState, setLoadingStatus(false))).toEqual(
       initializedState,
     );
+  });
+
+  test('setDetailsLoadingStatus should set isDetailsLoading', () => {
+    expect(reducer(initializedState, setDetailsLoadingStatus(true))).toEqual(
+      detailsLoadingState,
+    );
+
+    expect(
+      reducer(detailsLoadingState, setDetailsLoadingStatus(false)),
+    ).toEqual(initializedState);
   });
 });

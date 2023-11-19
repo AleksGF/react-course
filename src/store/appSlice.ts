@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface AppState {
   isInitialized: boolean;
   isLoading: boolean;
+  isDetailsLoading: boolean;
 }
 
 const initialState: AppState = {
   isInitialized: false,
   isLoading: false,
+  isDetailsLoading: false,
 };
 
 export const appSlice = createSlice({
@@ -22,9 +24,17 @@ export const appSlice = createSlice({
       ...state,
       isLoading: action.payload,
     }),
+    setDetailsLoadingStatus: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      isDetailsLoading: action.payload,
+    }),
   },
 });
 
-export const { setInitializationStatus, setLoadingStatus } = appSlice.actions;
+export const {
+  setInitializationStatus,
+  setLoadingStatus,
+  setDetailsLoadingStatus,
+} = appSlice.actions;
 
 export default appSlice.reducer;

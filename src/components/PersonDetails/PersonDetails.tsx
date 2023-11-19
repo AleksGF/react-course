@@ -1,10 +1,11 @@
-import React, { type FC } from 'react';
+import React, { type FC, useEffect } from 'react';
 import { hidePersonDetails } from '@src/store/mainSlice';
-import { useAppDispatch } from '@src/hook/hook';
+import { useAppDispatch, useAppSelector } from '@src/hook/hook';
 import { useGetPersonQuery } from '@src/services/api/peopleApi';
 import Loader from '@components/common/Loader/Loader';
 import CloseSvg from '@src/assets/close.svg';
 import './PersonDetails.scss';
+import { setDetailsLoadingStatus } from '@src/store/appSlice';
 
 interface PersonDetailsProps {
   personId: number;
@@ -12,6 +13,7 @@ interface PersonDetailsProps {
 
 const PersonDetails: FC<PersonDetailsProps> = (props) => {
   const dispatch = useAppDispatch();
+  const { isDetailsLoading } = useAppSelector((state) => state.app);
 
   const { personId } = props;
 
@@ -21,7 +23,11 @@ const PersonDetails: FC<PersonDetailsProps> = (props) => {
 
   const { data, isFetching } = useGetPersonQuery(personId);
 
-  if (isFetching) return <Loader />;
+  useEffect(() => {
+    dispatch(setDetailsLoadingStatus(isFetching));
+  }, [isFetching]);
+
+  if (isDetailsLoading) return <Loader />;
 
   return (
     <div className={'details__wrapper'}>

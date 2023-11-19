@@ -5,6 +5,7 @@ export const initialState: PreloadedState<RootState> = {
   app: {
     isInitialized: false,
     isLoading: false,
+    isDetailsLoading: false,
   },
   main: {
     searchValue: '',
@@ -34,5 +35,6 @@ export const stateWithInitialization: PreloadedState<RootState> = {
   app: {
     isInitialized: true,
     isLoading: false,
+    isDetailsLoading: false,
   },
 };
