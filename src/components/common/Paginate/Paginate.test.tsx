@@ -26,8 +26,6 @@ const router = createMemoryRouter(
 
 const TestComponent = () => <RouterProvider router={router} />;
 
-const spy = jest.spyOn(URLSearchParams.prototype, 'set');
-
 describe('Paginate should render correctly', () => {
   test('It should render all pages', async () => {
     const { getAllByText } = customRender(<TestComponent />);
@@ -38,17 +36,41 @@ describe('Paginate should render correctly', () => {
   });
 
   test('It should handle given function', async () => {
-    const { getByText } = customRender(<TestComponent />);
+    const mockSetSearchParams = jest.spyOn(URLSearchParams.prototype, 'set');
+
+    const { getByText, getAllByText } = customRender(<TestComponent />);
 
     const user = userEvent.setup();
     const pageButton = getByText(String(PageNumber.FirstPageNumber));
 
+    expect(mockSetSearchParams.mock.calls).toHaveLength(0);
+
     await user.click(pageButton);
 
-    expect(spy.mock.calls).toHaveLength(1);
-    expect(spy.mock.lastCall).toEqual([
+    expect(mockSetSearchParams.mock.calls).toHaveLength(1);
+    expect(mockSetSearchParams.mock.lastCall).toEqual([
       'page',
       String(PageNumber.FirstPageNumber),
     ]);
+    expect(getAllByText(/\d/).length).toBe(6);
+
+    await user.click(pageButton);
+
+    expect(mockSetSearchParams.mock.calls).toHaveLength(1);
+    expect(getAllByText(/\d/).length).toBe(6);
+
+    await user.click(getByText('<'));
+
+    expect(mockSetSearchParams.mock.calls).toHaveLength(1);
+    expect(getAllByText(/\d/).length).toBe(6);
+
+    await user.click(getByText('>'));
+
+    expect(mockSetSearchParams.mock.calls).toHaveLength(2);
+    expect(mockSetSearchParams.mock.lastCall).toEqual([
+      'page',
+      String(PageNumber.SecondPageNumber),
+    ]);
+    expect(getAllByText(/\d/).length).toBe(6);
   });
 });
