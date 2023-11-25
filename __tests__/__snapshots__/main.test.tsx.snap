@@ -1,0 +1,939 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main renders correctly 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <header>
+        <div
+          class="searchBar__wrapper"
+          data-testid="searchBar"
+        >
+          <form
+            class="searchBar__form"
+            name="search-field-form"
+          >
+            <input
+              data-testid="searchInput"
+              name="inputField"
+              type="text"
+              value=""
+            />
+            <button
+              data-testid="searchButton"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </header>
+      <main>
+        <h1
+          class="nav__title"
+        >
+          Star War Persons
+        </h1>
+        <div
+          class="select__wrapper"
+        >
+          <div>
+            Persons per page:
+          </div>
+          <select
+            data-testid="select"
+            name="persons-per-page"
+          >
+            <option
+              selected=""
+              value="10"
+            >
+              10
+            </option>
+            <option
+              value="20"
+            >
+              20
+            </option>
+          </select>
+        </div>
+        <div
+          data-testid="itemsList"
+        >
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=1"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Luke Skywalker
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=2"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              C-3PO
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=3"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              R2-D2
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=4"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Darth Vader
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=5"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Leia Organa
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=6"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Owen Lars
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=7"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Beru Whitesun lars
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=8"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              R5-D4
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=9"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Biggs Darklighter
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=10"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Obi-Wan Kenobi
+            </div>
+          </a>
+          <div
+            data-testid="pagination"
+          >
+            <button
+              data-testid="pagination__btn_prev"
+              disabled=""
+            >
+              &lt;&lt;&lt;
+            </button>
+            <div
+              data-testid="pagination__page"
+            >
+              Page# 1 from 9
+            </div>
+            <button
+              data-testid="pagination__btn_next"
+            >
+              &gt;&gt;&gt;
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>,
+  "container": <div>
+    <header>
+      <div
+        class="searchBar__wrapper"
+        data-testid="searchBar"
+      >
+        <form
+          class="searchBar__form"
+          name="search-field-form"
+        >
+          <input
+            data-testid="searchInput"
+            name="inputField"
+            type="text"
+            value=""
+          />
+          <button
+            data-testid="searchButton"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    </header>
+    <main>
+      <h1
+        class="nav__title"
+      >
+        Star War Persons
+      </h1>
+      <div
+        class="select__wrapper"
+      >
+        <div>
+          Persons per page:
+        </div>
+        <select
+          data-testid="select"
+          name="persons-per-page"
+        >
+          <option
+            selected=""
+            value="10"
+          >
+            10
+          </option>
+          <option
+            value="20"
+          >
+            20
+          </option>
+        </select>
+      </div>
+      <div
+        data-testid="itemsList"
+      >
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=1"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Luke Skywalker
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=2"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            C-3PO
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=3"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            R2-D2
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=4"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Darth Vader
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=5"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Leia Organa
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=6"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Owen Lars
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=7"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Beru Whitesun lars
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=8"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            R5-D4
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=9"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Biggs Darklighter
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=10"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Obi-Wan Kenobi
+          </div>
+        </a>
+        <div
+          data-testid="pagination"
+        >
+          <button
+            data-testid="pagination__btn_prev"
+            disabled=""
+          >
+            &lt;&lt;&lt;
+          </button>
+          <div
+            data-testid="pagination__page"
+          >
+            Page# 1 from 9
+          </div>
+          <button
+            data-testid="pagination__btn_next"
+          >
+            &gt;&gt;&gt;
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`Main renders correctly with details 1`] = `
+{
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <header>
+        <div
+          class="searchBar__wrapper"
+          data-testid="searchBar"
+        >
+          <form
+            class="searchBar__form"
+            name="search-field-form"
+          >
+            <input
+              data-testid="searchInput"
+              name="inputField"
+              type="text"
+              value=""
+            />
+            <button
+              data-testid="searchButton"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </header>
+      <main>
+        <h1
+          class="nav__title"
+        >
+          Star War Persons
+        </h1>
+        <div
+          class="select__wrapper"
+        >
+          <div>
+            Persons per page:
+          </div>
+          <select
+            data-testid="select"
+            name="persons-per-page"
+          >
+            <option
+              selected=""
+              value="10"
+            >
+              10
+            </option>
+            <option
+              value="20"
+            >
+              20
+            </option>
+          </select>
+        </div>
+        <div
+          data-testid="itemsList"
+        >
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=1"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Luke Skywalker
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=2"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              C-3PO
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=3"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              R2-D2
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=4"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Darth Vader
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=5"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Leia Organa
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=6"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Owen Lars
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=7"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Beru Whitesun lars
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=8"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              R5-D4
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=9"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Biggs Darklighter
+            </div>
+          </a>
+          <a
+            class="nav-item__wrapper"
+            href="/loading?details=10"
+          >
+            <div
+              class="nav-item__name nav-link"
+              data-testid="person-item"
+            >
+              Obi-Wan Kenobi
+            </div>
+          </a>
+          <div
+            data-testid="pagination"
+          >
+            <button
+              data-testid="pagination__btn_prev"
+              disabled=""
+            >
+              &lt;&lt;&lt;
+            </button>
+            <div
+              data-testid="pagination__page"
+            >
+              Page# 1 from 9
+            </div>
+            <button
+              data-testid="pagination__btn_next"
+            >
+              &gt;&gt;&gt;
+            </button>
+          </div>
+        </div>
+      </main>
+      <div
+        class="details__wrapper"
+        data-testid="details"
+        id="details"
+      >
+        <img
+          alt="Close details"
+          class="details__btn_close"
+          data-nimg="1"
+          data-testid="details-close-btn"
+          decoding="async"
+          height="24"
+          loading="lazy"
+          src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+          srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+          style="color: transparent;"
+          width="24"
+        />
+        <div
+          class="details__content"
+        >
+          <h3>
+            Person Details:
+          </h3>
+          <p>
+            Luke Skywalker was born in 19BBY.
+          </p>
+          <p>
+            Films count with is 4.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <header>
+      <div
+        class="searchBar__wrapper"
+        data-testid="searchBar"
+      >
+        <form
+          class="searchBar__form"
+          name="search-field-form"
+        >
+          <input
+            data-testid="searchInput"
+            name="inputField"
+            type="text"
+            value=""
+          />
+          <button
+            data-testid="searchButton"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    </header>
+    <main>
+      <h1
+        class="nav__title"
+      >
+        Star War Persons
+      </h1>
+      <div
+        class="select__wrapper"
+      >
+        <div>
+          Persons per page:
+        </div>
+        <select
+          data-testid="select"
+          name="persons-per-page"
+        >
+          <option
+            selected=""
+            value="10"
+          >
+            10
+          </option>
+          <option
+            value="20"
+          >
+            20
+          </option>
+        </select>
+      </div>
+      <div
+        data-testid="itemsList"
+      >
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=1"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Luke Skywalker
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=2"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            C-3PO
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=3"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            R2-D2
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=4"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Darth Vader
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=5"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Leia Organa
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=6"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Owen Lars
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=7"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Beru Whitesun lars
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=8"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            R5-D4
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=9"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Biggs Darklighter
+          </div>
+        </a>
+        <a
+          class="nav-item__wrapper"
+          href="/loading?details=10"
+        >
+          <div
+            class="nav-item__name nav-link"
+            data-testid="person-item"
+          >
+            Obi-Wan Kenobi
+          </div>
+        </a>
+        <div
+          data-testid="pagination"
+        >
+          <button
+            data-testid="pagination__btn_prev"
+            disabled=""
+          >
+            &lt;&lt;&lt;
+          </button>
+          <div
+            data-testid="pagination__page"
+          >
+            Page# 1 from 9
+          </div>
+          <button
+            data-testid="pagination__btn_next"
+          >
+            &gt;&gt;&gt;
+          </button>
+        </div>
+      </div>
+    </main>
+    <div
+      class="details__wrapper"
+      data-testid="details"
+      id="details"
+    >
+      <img
+        alt="Close details"
+        class="details__btn_close"
+        data-nimg="1"
+        data-testid="details-close-btn"
+        decoding="async"
+        height="24"
+        loading="lazy"
+        src="/_next/image?url=%2Fimg.jpg&w=48&q=75"
+        srcset="/_next/image?url=%2Fimg.jpg&w=32&q=75 1x, /_next/image?url=%2Fimg.jpg&w=48&q=75 2x"
+        style="color: transparent;"
+        width="24"
+      />
+      <div
+        class="details__content"
+      >
+        <h3>
+          Person Details:
+        </h3>
+        <p>
+          Luke Skywalker was born in 19BBY.
+        </p>
+        <p>
+          Films count with is 4.
+        </p>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
