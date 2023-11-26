@@ -22,21 +22,17 @@ const ItemsList: FC<ItemListProps> = ({ count, data }) => {
   const closeDetailsHandler = (e: MouseEvent<HTMLElement>): void => {
     if (!e.target || !detailsId) return;
 
-    const target = e.target as HTMLElement;
+    e.preventDefault();
 
-    const linkElement = target.closest('.nav-item__wrapper');
+    const { search } = handleSearchParams(router.asPath, {
+      [SearchParamsKeys.DETAILS_VIEW_ID]: null,
+    });
 
-    if (!linkElement) {
-      const { search } = handleSearchParams(router.asPath, {
-        [SearchParamsKeys.DETAILS_VIEW_ID]: null,
-      });
-
-      router.push(`${RoutePath.LOADING}?${search}`);
-    }
+    router.push(`${RoutePath.LOADING}?${search}`);
   };
 
   if (!data || !data.length) {
-    return <h2 className={'nav__title'}>No one was found</h2>;
+    return <h2>No one was found</h2>;
   }
 
   return (
