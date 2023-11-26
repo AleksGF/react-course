@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import CloseSvg from '/public/close.svg';
 import { RoutePath, SearchParamsKeys } from '@src/constants/constants';
 import { handleSearchParams } from '@src/helpers/handleSearchParams';
+import styles from './CloseBtn.module.scss';
 
 const CloseBtn: FC = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const CloseBtn: FC = () => {
 
   return (
     <Image
-      className={'details__btn_close'}
+      className={styles.button}
       src={CloseSvg.src}
       alt={'Close details'}
       width={'24'}

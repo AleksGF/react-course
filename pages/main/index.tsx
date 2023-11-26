@@ -10,6 +10,7 @@ import { getApiPageNumber } from '@src/helpers/getApiPageNumber';
 import { fetchPeople } from '@src/services/fetchPeople';
 import { fetchDetails } from '@src/services/fetchDetails';
 import type { PeopleApiResponse, Person } from '@src/types/apiTypes';
+import styles from './main.module.scss';
 
 interface MainProps {
   people: PeopleApiResponse;
@@ -25,16 +26,18 @@ const Main: FC<MainProps> = ({ people: { count, results }, details }) => {
       <header>
         <SearchBar />
       </header>
-      <main>
-        <h1 className={'nav__title'}>Star War Persons</h1>
-        <Select
-          wrapperClassName={'select__wrapper'}
-          title={'Persons per page:'}
-          selectName={'persons-per-page'}
-        />
-        <ItemsList count={count} data={results} />
-      </main>
-      {!!details && <PersonDetails person={details} />}
+      <div className={styles.wrapper}>
+        <main>
+          <h1 className={'nav__title'}>Star War Persons</h1>
+          <Select
+            wrapperClassName={'select__wrapper'}
+            title={'Persons per page:'}
+            selectName={'persons-per-page'}
+          />
+          <ItemsList count={count} data={results} />
+        </main>
+        {!!details && <PersonDetails person={details} />}
+      </div>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import React, { type FC } from 'react';
 import CloseBtn from '@components/PersonDetails/CloseBtn/CloseBtn';
 import type { Person } from '@src/types/apiTypes';
+import styles from './PersonDetails.module.scss';
 
 interface PersonDetailsProps {
   person: Person;
@@ -8,7 +9,7 @@ interface PersonDetailsProps {
 
 const PersonDetails: FC<PersonDetailsProps> = ({ person }) => {
   return (
-    <div className={'details__wrapper'} id={'details'} data-testid={'details'}>
+    <div className={styles.wrapper} id={'details'} data-testid={'details'}>
       <CloseBtn />
       <div className={'details__content'}>
         <h3>Person Details:</h3>

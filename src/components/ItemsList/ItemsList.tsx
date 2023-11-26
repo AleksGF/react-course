@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { RoutePath, SearchParamsKeys } from '@src/constants/constants';
 import { getValidDetailsId } from '@src/helpers/getValidParams';
 import { handleSearchParams } from '@src/helpers/handleSearchParams';
+import styles from './ItemsList.module.scss';
 
 interface ItemListProps {
   count: number;
@@ -39,7 +40,11 @@ const ItemsList: FC<ItemListProps> = ({ count, data }) => {
   }
 
   return (
-    <div onClick={closeDetailsHandler} data-testid={'itemsList'}>
+    <div
+      onClick={closeDetailsHandler}
+      data-testid={'itemsList'}
+      className={styles.wrapper}
+    >
       {data.map((person) => (
         <Item
           key={`${person.name}-${person.url}-${person.created}`}

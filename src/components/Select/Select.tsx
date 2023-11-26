@@ -8,6 +8,7 @@ import {
 } from '@src/constants/constants';
 import { getValidItemsPerPage } from '@src/helpers/getValidParams';
 import { handleSearchParams } from '@src/helpers/handleSearchParams';
+import styles from './Select.module.scss';
 
 interface SelectProps {
   wrapperClassName: string;
@@ -34,7 +35,7 @@ const Select: FC<SelectProps> = ({ wrapperClassName, title, selectName }) => {
   };
 
   return (
-    <div className={wrapperClassName}>
+    <div className={styles.wrapper}>
       <div>{title}</div>
       <select
         name={selectName}

@@ -1,0 +1,13 @@
+.item {
+  padding: .3rem 0;
+  transition: all .3s ease-out;
+
+  &:hover, &:active {
+    opacity: .9;
+    transform: scale(1.01);
+  }
+}
+
+.active {
+  font-weight: bold;
+}

@@ -10,6 +10,7 @@ import {
   RoutePath,
 } from '@src/constants/constants';
 import { handleSearchParams } from '@src/helpers/handleSearchParams';
+import styles from './Paginate.module.scss';
 
 interface PaginateProps {
   totalItemsCount: number;
@@ -40,13 +41,14 @@ const Paginate: FC<PaginateProps> = ({ totalItemsCount }) => {
   };
 
   return (
-    <div data-testid={'pagination'}>
+    <div data-testid={'pagination'} className={styles.wrapper}>
       <button
         disabled={currentPage <= FIRST_PAGE}
         onClick={() => {
           changePageHandler(currentPage - pageCountStep);
         }}
         data-testid={'pagination__btn_prev'}
+        className={styles.button}
       >
         {'<<<'}
       </button>
@@ -59,6 +61,7 @@ const Paginate: FC<PaginateProps> = ({ totalItemsCount }) => {
           changePageHandler(currentPage + pageCountStep);
         }}
         data-testid={'pagination__btn_next'}
+        className={styles.button}
       >
         {'>>>'}
       </button>

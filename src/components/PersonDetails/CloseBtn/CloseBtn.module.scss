@@ -1,0 +1,10 @@
+.button {
+  cursor: pointer;
+  transition: all .3s ease-out;
+  align-self: flex-end;
+
+  &:hover, &:active {
+    opacity: .9;
+    transform: scale(1.05);
+  }
+}

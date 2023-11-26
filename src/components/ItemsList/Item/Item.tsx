@@ -6,6 +6,7 @@ import { RoutePath, SearchParamsKeys } from '@src/constants/constants';
 import Link from 'next/link';
 import { handleSearchParams } from '@src/helpers/handleSearchParams';
 import type { Person } from '@src/types/apiTypes';
+import styles from './Item.module.scss';
 
 interface ItemProps {
   person: Person;
@@ -30,8 +31,8 @@ const Item: FC<ItemProps> = ({ person }) => {
       <div
         className={
           personId === detailsId
-            ? 'nav-item__name active'
-            : 'nav-item__name nav-link'
+            ? `${styles.item} ${styles.active}`
+            : `${styles.item}`
         }
         data-testid={'person-item'}
       >
