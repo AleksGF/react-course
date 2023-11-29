@@ -1,5 +1,5 @@
 import type { RouteObject } from 'react-router';
-import Layout from '@/components/Layout/Layout';
+import App from '@/App';
 import Home from '@/pages/Home/Home';
 import UncontrolledForm from '@/pages/UncontrolledForm/UncontrolledForm';
 import ControlledForm from '@/pages/ControlledForm/ControlledForm';
@@ -7,7 +7,7 @@ import ControlledForm from '@/pages/ControlledForm/ControlledForm';
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Layout />,
+    element: <App />,
     children: [
       {
         index: true,
@@ -22,7 +22,7 @@ export const routes: RouteObject[] = [
         element: <UncontrolledForm />,
         handle: {
           navName: () => 'Form without control',
-          navPath: () => 'uncontrolled_form/',
+          navPath: () => '/uncontrolled_form',
         },
       },
       {
@@ -30,7 +30,7 @@ export const routes: RouteObject[] = [
         element: <ControlledForm />,
         handle: {
           navName: () => 'Form with control',
-          navPath: () => 'controlled_form/',
+          navPath: () => '/controlled_form',
         },
       },
     ],
