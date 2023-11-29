@@ -1,4 +1,12 @@
-import { boolean, InferType, mixed, number, object, ref, string } from 'yup';
+import {
+  boolean,
+  mixed,
+  number,
+  object,
+  ref,
+  string,
+  type InferType,
+} from 'yup';
 import {
   COUNTRIES,
   GENDERS,
@@ -10,8 +18,20 @@ import {
   isValidImageType,
 } from '@/helpers/validationHelpers';
 
+export enum FORM_FIELDS_LABELS {
+  NAME = 'Name',
+  AGE = 'Age',
+  EMAIL = 'Email',
+  PASSWORD = 'Password',
+  PASSWORD_CONFIRM = 'Confirm Password',
+  GENDER = 'Gender',
+  ACCEPT = 'Accept T&C',
+  COUNTRY = 'Country',
+  IMAGE = 'Image',
+}
+
 const name = {
-  name: string()
+  [FORM_FIELDS_LABELS.NAME]: string()
     .required()
     .typeError('Field is required')
     .min(1)
@@ -19,7 +39,7 @@ const name = {
 };
 
 const age = {
-  age: number()
+  [FORM_FIELDS_LABELS.AGE]: number()
     .required()
     .typeError('Field is required')
     .positive('Age must be positive')
@@ -27,7 +47,7 @@ const age = {
 };
 
 const email = {
-  email: string()
+  [FORM_FIELDS_LABELS.EMAIL]: string()
     .required()
     .typeError('Field is required')
     .email('You should provide correct email'),
@@ -46,34 +66,49 @@ const passwordSchema = string()
   )
   .min(8, 'Must have minimum eight characters');
 
-const password = { password: passwordSchema };
+const password = { [FORM_FIELDS_LABELS.PASSWORD]: passwordSchema };
 
 const passwordConfirm = {
-  passwordConfirm: passwordSchema.oneOf(
-    [ref('password')],
+  [FORM_FIELDS_LABELS.PASSWORD_CONFIRM]: passwordSchema.oneOf(
+    [ref(FORM_FIELDS_LABELS.PASSWORD)],
     'Your passwords are not the same',
   ),
 };
 
 const gender = {
-  gender: string().required().typeError('Field is required').oneOf(GENDERS),
+  [FORM_FIELDS_LABELS.GENDER]: string()
+    .required()
+    .typeError('Field is required')
+    .oneOf(GENDERS),
 };
 
-const accept = { accept: boolean().required().typeError('You should accept') };
+const accept = {
+  [FORM_FIELDS_LABELS.ACCEPT]: boolean()
+    .required()
+    .typeError('You have to accept'),
+};
 
 const country = {
-  country: string().required().typeError('Field is required').oneOf(COUNTRIES),
+  [FORM_FIELDS_LABELS.COUNTRY]: string()
+    .required()
+    .typeError('Field is required')
+    .oneOf(COUNTRIES, `You must choose ${[FORM_FIELDS_LABELS.COUNTRY]}`),
 };
 
 const image = {
-  image: mixed()
+  [FORM_FIELDS_LABELS.IMAGE]: mixed()
+    .test(
+      'isUploaded',
+      'You should upload image',
+      (value) => !!(value as FileList)?.length,
+    )
     .test(
       'isValidType',
       `Allowed extensions are: ${VALID_FILE_EXTENSIONS.toString()}`,
-      (value) => isValidImageType(value),
+      (value) => (value ? isValidImageType((value as FileList)[0]) : false),
     )
     .test('isValidSize', `Max file size is ${MAX_FILE_SIZE} bytes`, (value) =>
-      isValidImageSize(value),
+      value ? isValidImageSize((value as FileList)[0]) : false,
     ),
 };
 

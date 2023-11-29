@@ -1,10 +1,10 @@
-import type { Gender } from '@/types/commonTypes';
+export type Gender = 'male' | 'female' | 'other';
 
-export const GENDERS: Gender[] = ['male', 'female'];
+export const GENDERS: Gender[] = ['male', 'female', 'other'];
 
 export const MAX_FILE_SIZE = 102400; //100KB
 
-export const VALID_FILE_EXTENSIONS = ['png', 'jpeg'];
+export const VALID_FILE_EXTENSIONS = ['png', 'jpeg', 'jpg'];
 
 export const COUNTRIES = [
   'Aedirn',

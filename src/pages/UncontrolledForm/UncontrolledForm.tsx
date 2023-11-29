@@ -1,7 +1,7 @@
 import React, { type FC } from 'react';
 
 const UncontrolledForm: FC = () => {
-  return <div>Home</div>;
+  return <div>UncontrolledForm</div>;
 };
 
 export default UncontrolledForm;

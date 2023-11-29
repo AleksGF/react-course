@@ -21,7 +21,11 @@ const App: FC = () => {
     if (navPaths) dispatch(setNavPaths(navPaths));
   }, [dispatch]);
 
-  return <Layout />;
+  return (
+    <>
+      <Layout />
+    </>
+  );
 };
 
 export default App;
