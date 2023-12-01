@@ -15,7 +15,7 @@ interface DataItem extends Omit<FormFields, FORM_FIELDS_LABELS.IMAGE> {
   [FORM_FIELDS_LABELS.IMAGE]: ImageFile;
 }
 
-interface FormData {
+export interface FormData {
   isNew: boolean;
   data: DataItem;
 }

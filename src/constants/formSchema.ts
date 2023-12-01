@@ -52,7 +52,7 @@ const passwordSchema = string()
   .matches(/^\S.*\S$/, 'Must not contain leading or trailing whitespace')
   .matches(/^(?=.*[a-z])/, 'Must contain at least one lowercase character')
   .matches(/^(?=.*[A-Z])/, 'Must contain at least one Uppercase character')
-  .matches(/^(?=.*[0-9])/, 'Must contain at least oOne number character')
+  .matches(/^(?=.*[0-9])/, 'Must contain at least one number character')
   .matches(
     /^(?=.*[@$!%*#?&])/,
     'Must contain at least one special character (@$!%*#?&)',

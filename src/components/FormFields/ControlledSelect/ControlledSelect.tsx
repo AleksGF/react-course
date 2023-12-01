@@ -1,4 +1,4 @@
-import React, { type FC, memo } from 'react';
+import React, { type FC } from 'react';
 import {
   type UseFormWatch,
   type UseFormRegister,
@@ -43,4 +43,4 @@ const ControlledSelect: FC<ControlledSelectProps> = ({
   );
 };
 
-export default memo(ControlledSelect);
+export default ControlledSelect;

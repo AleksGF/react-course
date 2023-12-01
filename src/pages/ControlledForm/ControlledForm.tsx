@@ -47,8 +47,6 @@ const ControlledForm: FC = () => {
   });
 
   const memorizedRegister = useCallback(register, [register]);
-  const memorizedSetValue = useCallback(setValue, [setValue]);
-  const memorizedWatch = useCallback(watch, [watch]);
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     const file = (data[FORM_FIELDS_LABELS.IMAGE] as FileList)[0];
@@ -108,8 +106,8 @@ const ControlledForm: FC = () => {
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           register={memorizedRegister}
           error={errors[FORM_FIELDS_LABELS.COUNTRY]?.message}
-          setValue={memorizedSetValue}
-          watch={memorizedWatch}
+          setValue={setValue}
+          watch={watch}
         />
         <ControlledInput
           type={'file'}
