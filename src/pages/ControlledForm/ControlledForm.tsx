@@ -1,18 +1,23 @@
-import React, { type FC, useCallback } from 'react';
-import { useMatches } from 'react-router-dom';
-import { useForm, SubmitHandler, FieldError } from 'react-hook-form';
+import React, { type FC, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
+import { addFormData } from '@/store/formDataSlice';
 import {
   FORM_FIELDS_LABELS,
+  type FormFields,
   formSchema,
-  type FormSchemaType,
 } from '@/constants/formSchema';
+import PageTittle from '@/components/PageTittle/PageTittle';
 import ControlledInput, {
   type InputType,
 } from '@/components/FormFields/ControlledInput/ControlledInput';
 import ControlledRadio from '@/components/FormFields/ControlledRadio/ControlledRadio';
-import { COUNTRIES, GENDERS } from '@/constants/constants';
 import ControlledSelect from '@/components/FormFields/ControlledSelect/ControlledSelect';
+import { GENDERS } from '@/constants/constants';
+import { FormWrapper, StyledForm } from '@/components/FormFields/Wrappers';
+import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
 
 const INPUTS: { inputId: `${FORM_FIELDS_LABELS}`; type: InputType }[] = [
   { inputId: FORM_FIELDS_LABELS.NAME, type: 'text' },
@@ -23,42 +28,72 @@ const INPUTS: { inputId: `${FORM_FIELDS_LABELS}`; type: InputType }[] = [
 ];
 
 const ControlledForm: FC = () => {
-  const match = useMatches().at(-1);
-  const pageTittle =
-    match &&
-    match.handle &&
-    typeof match.handle === 'object' &&
-    'navName' in match.handle
-      ? (match.handle.navName as () => string)()
-      : null;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const COUNTRIES = useRef<string[]>(
+    useAppSelector((state) => state.app.countries),
+  );
 
   const {
+    setValue,
+    watch,
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormSchemaType>({
+    reset,
+    formState: { errors, isValid },
+  } = useForm<FormFields>({
     resolver: yupResolver(formSchema),
-    mode: 'onChange',
+    mode: 'onTouched',
   });
 
   const memorizedRegister = useCallback(register, [register]);
+  const memorizedSetValue = useCallback(setValue, [setValue]);
+  const memorizedWatch = useCallback(watch, [watch]);
 
-  const onSubmit: SubmitHandler<FormSchemaType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    const file = (data[FORM_FIELDS_LABELS.IMAGE] as FileList)[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      if (!reader.result)
+        throw new Error(`Error while read file ${file?.name || ''}`);
+
+      dispatch(
+        addFormData({
+          ...data,
+          [FORM_FIELDS_LABELS.IMAGE]: {
+            name: file.name,
+            content: reader.result as string,
+          },
+        }),
+      );
+
+      reset();
+      navigate('/');
+    };
+
+    reader.onerror = () => {
+      throw new Error(`Error while read file ${file?.name || ''}`);
+    };
+
+    reader.readAsDataURL(file);
+  };
 
   return (
-    <>
-      <h2>{pageTittle ?? ''}</h2>
-      <form
+    <FormWrapper>
+      <PageTittle />
+      <StyledForm
         id={'controlledForm'}
         onSubmit={handleSubmit(onSubmit)}
         autoComplete={'off'}
+        noValidate={true}
       >
         {INPUTS.map((item, ind) => (
           <ControlledInput
             type={item.type}
             inputId={item.inputId}
             register={memorizedRegister}
-            error={errors[item.inputId] as FieldError}
+            error={errors[item.inputId]?.message}
             key={ind}
           />
         ))}
@@ -66,29 +101,33 @@ const ControlledForm: FC = () => {
           values={GENDERS}
           inputId={FORM_FIELDS_LABELS.GENDER}
           register={memorizedRegister}
-          error={errors[FORM_FIELDS_LABELS.GENDER]}
-        />
-        <ControlledInput
-          type={'checkbox'}
-          inputId={FORM_FIELDS_LABELS.ACCEPT}
-          register={memorizedRegister}
-          error={errors[FORM_FIELDS_LABELS.ACCEPT]}
+          error={errors[FORM_FIELDS_LABELS.GENDER]?.message}
         />
         <ControlledSelect
-          options={COUNTRIES}
+          options={COUNTRIES.current}
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           register={memorizedRegister}
-          error={errors[FORM_FIELDS_LABELS.COUNTRY]}
+          error={errors[FORM_FIELDS_LABELS.COUNTRY]?.message}
+          setValue={memorizedSetValue}
+          watch={memorizedWatch}
         />
         <ControlledInput
           type={'file'}
           inputId={FORM_FIELDS_LABELS.IMAGE}
           register={memorizedRegister}
-          error={errors[FORM_FIELDS_LABELS.IMAGE] as FieldError}
+          error={errors[FORM_FIELDS_LABELS.IMAGE]?.message}
         />
-        <button type={'submit'}>{'Submit form'}</button>
-      </form>
-    </>
+        <ControlledInput
+          type={'checkbox'}
+          inputId={FORM_FIELDS_LABELS.ACCEPT}
+          register={memorizedRegister}
+          error={errors[FORM_FIELDS_LABELS.ACCEPT]?.message}
+        />
+        <StyledSubmitBtn type={'submit'} disabled={!isValid}>
+          {'Submit form'}
+        </StyledSubmitBtn>
+      </StyledForm>
+    </FormWrapper>
   );
 };
 

@@ -8,9 +8,6 @@ const App: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    //TODO remove console.log
-    console.log('Setting navPaths');
-
     const navPaths = routes[0]?.children?.map(
       (child): NavPaths => ({
         name: child.handle.navName() as string,

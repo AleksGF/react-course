@@ -1,44 +1,46 @@
-import React, { type FC } from 'react';
-import { type FieldError, type UseFormRegister } from 'react-hook-form';
+import React, { type FC, memo } from 'react';
+import {
+  type UseFormWatch,
+  type UseFormRegister,
+  type UseFormSetValue,
+} from 'react-hook-form';
 import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 import { FieldWrapper, Wrapper } from '@/components/FormFields/Wrappers';
-import {
-  FORM_FIELDS_LABELS,
-  type FormSchemaType,
-} from '@/constants/formSchema';
-import { COUNTRIES } from '@/constants/constants';
-
-type Option = (typeof COUNTRIES)[number];
+import { type FormFields } from '@/constants/formSchema';
+import CustomSelect from '@/components/FormFields/CustomSelect/CustomSelect';
 
 interface ControlledSelectProps {
-  options: Option[];
-  selectId: `${FORM_FIELDS_LABELS}`;
-  register: UseFormRegister<FormSchemaType>;
-  error?: FieldError;
+  options: string[];
+  selectId: keyof FormFields;
+  register: UseFormRegister<FormFields>;
+  setValue: UseFormSetValue<FormFields>;
+  watch: UseFormWatch<FormFields>;
+  error?: string;
 }
 
 const ControlledSelect: FC<ControlledSelectProps> = ({
   options,
   selectId,
   register,
+  setValue,
+  watch,
   error,
 }) => {
   return (
     <Wrapper>
       <FieldWrapper>
         <label htmlFor={selectId}>{selectId}</label>
-        <select id={selectId} autoComplete={selectId} {...register(selectId)}>
-          <option value={''}>{`Choose ${FORM_FIELDS_LABELS.COUNTRY}`}</option>
-          {options.map((value) => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </select>
+        <CustomSelect
+          options={options}
+          fieldId={selectId}
+          register={register}
+          setValue={setValue}
+          watch={watch}
+        />
       </FieldWrapper>
-      <ErrorMessage>{error?.message ?? ''}</ErrorMessage>
+      <ErrorMessage>{error ?? ''}</ErrorMessage>
     </Wrapper>
   );
 };
 
-export default ControlledSelect;
+export default memo(ControlledSelect);

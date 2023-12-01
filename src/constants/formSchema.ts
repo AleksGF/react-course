@@ -1,22 +1,15 @@
-import {
-  boolean,
-  mixed,
-  number,
-  object,
-  ref,
-  string,
-  type InferType,
-} from 'yup';
-import {
-  COUNTRIES,
-  GENDERS,
-  MAX_FILE_SIZE,
-  VALID_FILE_EXTENSIONS,
-} from '@/constants/constants';
+import { boolean, mixed, number, object, ref, string } from 'yup';
 import {
   isValidImageSize,
   isValidImageType,
 } from '@/helpers/validationHelpers';
+import {
+  Gender,
+  GENDERS,
+  MAX_FILE_SIZE,
+  VALID_FILE_EXTENSIONS,
+} from '@/constants/constants';
+import { COUNTRIES } from '@/constants/countries';
 
 export enum FORM_FIELDS_LABELS {
   NAME = 'Name',
@@ -25,9 +18,9 @@ export enum FORM_FIELDS_LABELS {
   PASSWORD = 'Password',
   PASSWORD_CONFIRM = 'Confirm Password',
   GENDER = 'Gender',
+  IMAGE = 'Image',
   ACCEPT = 'Accept T&C',
   COUNTRY = 'Country',
-  IMAGE = 'Image',
 }
 
 const name = {
@@ -82,21 +75,9 @@ const gender = {
     .oneOf(GENDERS),
 };
 
-const accept = {
-  [FORM_FIELDS_LABELS.ACCEPT]: boolean()
-    .required()
-    .typeError('You have to accept'),
-};
-
-const country = {
-  [FORM_FIELDS_LABELS.COUNTRY]: string()
-    .required()
-    .typeError('Field is required')
-    .oneOf(COUNTRIES, `You must choose ${[FORM_FIELDS_LABELS.COUNTRY]}`),
-};
-
 const image = {
   [FORM_FIELDS_LABELS.IMAGE]: mixed()
+    .required()
     .test(
       'isUploaded',
       'You should upload image',
@@ -112,6 +93,20 @@ const image = {
     ),
 };
 
+const accept = {
+  [FORM_FIELDS_LABELS.ACCEPT]: boolean()
+    .required()
+    .test('isAccepted', 'You have to accept', (value) => value)
+    .typeError('You have to accept'),
+};
+
+const country = {
+  [FORM_FIELDS_LABELS.COUNTRY]: string()
+    .required()
+    .typeError('Field is required')
+    .oneOf(COUNTRIES, `You must choose ${[FORM_FIELDS_LABELS.COUNTRY]}`),
+};
+
 export const formSchema = object({
   ...name,
   ...age,
@@ -119,9 +114,19 @@ export const formSchema = object({
   ...password,
   ...passwordConfirm,
   ...gender,
-  ...accept,
   ...image,
+  ...accept,
   ...country,
 }).required();
 
-export type FormSchemaType = InferType<typeof formSchema>;
+export interface FormFields {
+  [FORM_FIELDS_LABELS.NAME]: string;
+  [FORM_FIELDS_LABELS.AGE]: number;
+  [FORM_FIELDS_LABELS.EMAIL]: string;
+  [FORM_FIELDS_LABELS.PASSWORD]: string;
+  [FORM_FIELDS_LABELS.PASSWORD_CONFIRM]: string;
+  [FORM_FIELDS_LABELS.GENDER]: Gender;
+  [FORM_FIELDS_LABELS.IMAGE]: object;
+  [FORM_FIELDS_LABELS.ACCEPT]: NonNullable<boolean | undefined>;
+  [FORM_FIELDS_LABELS.COUNTRY]: string;
+}

@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { COUNTRIES } from '@/constants/countries';
 
 export interface NavPaths {
   name: string;
@@ -7,10 +8,12 @@ export interface NavPaths {
 
 interface AppState {
   navPaths: NavPaths[];
+  countries: string[];
 }
 
 const initialState: AppState = {
   navPaths: [],
+  countries: COUNTRIES,
 };
 
 export const appSlice = createSlice({
