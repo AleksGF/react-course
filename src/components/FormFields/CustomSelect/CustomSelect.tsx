@@ -1,45 +1,29 @@
 import React, { type FC, useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import {
   type UseFormWatch,
   type UseFormRegister,
   type UseFormSetValue,
 } from 'react-hook-form';
-import { type FormFields } from '@/constants/formSchema';
+import { type FormType } from '@/constants/formSchema';
 import searchIcon from '@/components/FormFields/CustomSelect/search.svg';
 import { BASE_ICON_SIZE } from '@/constants/constants';
-import { COLORS } from '@/constants/styles';
 import OptionsList from '@/components/FormFields/CustomSelect/OptionsList';
+import {
+  StyledInput,
+  StyledSearchWrapper,
+  StyledWrapper,
+} from '@/components/FormFields/CustomSelect/Wrappers';
 
 const OPTIONS_TO_SHOW_COUNT = 12;
 const SELECT_ID = 'select_field_id';
 
 interface CustomSelectProps {
   options: string[];
-  fieldId: keyof FormFields;
-  register: UseFormRegister<FormFields>;
-  setValue: UseFormSetValue<FormFields>;
-  watch: UseFormWatch<FormFields>;
+  fieldId: keyof FormType;
+  register: UseFormRegister<FormType>;
+  setValue: UseFormSetValue<FormType>;
+  watch: UseFormWatch<FormType>;
 }
-
-const StyledWrapper = styled.div`
-  position: relative;
-  border: 1px solid ${COLORS.CustomFieldBorder};
-  border-radius: 3px;
-`;
-
-const StyledSearchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0.2rem;
-  border-radius: 3px;
-  background-color: ${COLORS.WhiteColor};
-`;
-
-const StyledInput = styled.input`
-  border: none;
-  outline: none;
-`;
 
 const CustomSelect: FC<CustomSelectProps> = ({
   options,

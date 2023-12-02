@@ -1,22 +1,16 @@
 import React, { type FC, memo } from 'react';
-import { type UseFormRegister } from 'react-hook-form';
-import {
-  FORM_FIELDS_LABELS,
-  type FormType,
-  type InputType,
-} from '@/constants/formSchema';
-import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
+import { FORM_FIELDS_LABELS, InputType } from '@/constants/formSchema';
 import { FieldWrapper, Wrapper } from '@/components/FormFields/Wrappers';
+import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 
-interface ControlledInputProps {
+interface UncontrolledInputProps {
   type: InputType;
   inputId: `${FORM_FIELDS_LABELS}`;
-  register: UseFormRegister<FormType>;
   error?: string;
 }
 
-const ControlledInput: FC<ControlledInputProps> = memo(
-  ({ type, inputId, register, error }) => {
+const UncontrolledInput: FC<UncontrolledInputProps> = memo(
+  ({ type, inputId, error }) => {
     return (
       <Wrapper>
         <FieldWrapper>
@@ -24,8 +18,8 @@ const ControlledInput: FC<ControlledInputProps> = memo(
           <input
             type={type}
             id={inputId}
+            name={inputId}
             autoComplete={type === 'password' ? 'new-password' : inputId}
-            {...register(inputId)}
           />
         </FieldWrapper>
         <ErrorMessage>{error ?? ''}</ErrorMessage>
@@ -34,4 +28,4 @@ const ControlledInput: FC<ControlledInputProps> = memo(
   },
 );
 
-export default ControlledInput;
+export default UncontrolledInput;

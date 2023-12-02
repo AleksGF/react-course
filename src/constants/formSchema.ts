@@ -1,4 +1,4 @@
-import { boolean, mixed, number, object, ref, string } from 'yup';
+import { boolean, InferType, mixed, number, object, ref, string } from 'yup';
 import {
   isValidImageSize,
   isValidImageType,
@@ -81,7 +81,7 @@ const image = {
     .test(
       'isUploaded',
       'You should upload image',
-      (value) => !!(value as FileList)?.length,
+      (value) => !!(value as FileList)[0]?.name?.length,
     )
     .test(
       'isValidType',
@@ -119,7 +119,9 @@ export const formSchema = object({
   ...country,
 }).required();
 
-export interface FormFields {
+export type FormType = InferType<typeof formSchema>;
+
+interface FormFields {
   [FORM_FIELDS_LABELS.NAME]: string;
   [FORM_FIELDS_LABELS.AGE]: number;
   [FORM_FIELDS_LABELS.EMAIL]: string;
@@ -130,3 +132,19 @@ export interface FormFields {
   [FORM_FIELDS_LABELS.ACCEPT]: NonNullable<boolean | undefined>;
   [FORM_FIELDS_LABELS.COUNTRY]: string;
 }
+
+export const INPUTS: { inputId: `${FORM_FIELDS_LABELS}`; type: InputType }[] = [
+  { inputId: FORM_FIELDS_LABELS.NAME, type: 'text' },
+  { inputId: FORM_FIELDS_LABELS.AGE, type: 'number' },
+  { inputId: FORM_FIELDS_LABELS.EMAIL, type: 'email' },
+  { inputId: FORM_FIELDS_LABELS.PASSWORD, type: 'password' },
+  { inputId: FORM_FIELDS_LABELS.PASSWORD_CONFIRM, type: 'password' },
+];
+
+export type InputType =
+  | 'text'
+  | 'number'
+  | 'email'
+  | 'password'
+  | 'checkbox'
+  | 'file';

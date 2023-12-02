@@ -6,15 +6,15 @@ import {
 } from 'react-hook-form';
 import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 import { FieldWrapper, Wrapper } from '@/components/FormFields/Wrappers';
-import { type FormFields } from '@/constants/formSchema';
+import { type FormType } from '@/constants/formSchema';
 import CustomSelect from '@/components/FormFields/CustomSelect/CustomSelect';
 
 interface ControlledSelectProps {
   options: string[];
-  selectId: keyof FormFields;
-  register: UseFormRegister<FormFields>;
-  setValue: UseFormSetValue<FormFields>;
-  watch: UseFormWatch<FormFields>;
+  selectId: keyof FormType;
+  register: UseFormRegister<FormType>;
+  setValue: UseFormSetValue<FormType>;
+  watch: UseFormWatch<FormType>;
   error?: string;
 }
 

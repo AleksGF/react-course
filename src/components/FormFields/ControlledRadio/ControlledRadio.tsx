@@ -1,6 +1,6 @@
 import React, { type FC, memo } from 'react';
 import { type UseFormRegister } from 'react-hook-form';
-import { FORM_FIELDS_LABELS, type FormFields } from '@/constants/formSchema';
+import { FORM_FIELDS_LABELS, type FormType } from '@/constants/formSchema';
 import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 import { FieldsetWrapper, Wrapper } from '@/components/FormFields/Wrappers';
 import { getCapitalized } from '@/helpers/getCapitalized';
@@ -8,7 +8,7 @@ import { getCapitalized } from '@/helpers/getCapitalized';
 interface ControlledRadioProps {
   values: string[];
   inputId: `${FORM_FIELDS_LABELS}`;
-  register: UseFormRegister<FormFields>;
+  register: UseFormRegister<FormType>;
   error?: string;
 }
 

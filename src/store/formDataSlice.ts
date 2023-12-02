@@ -3,7 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from '@reduxjs/toolkit';
-import { FORM_FIELDS_LABELS, type FormFields } from '@/constants/formSchema';
+import { FORM_FIELDS_LABELS, type FormType } from '@/constants/formSchema';
 import { TIME_DATA_TO_BE_NEW } from '@/constants/constants';
 
 interface ImageFile {
@@ -11,7 +11,7 @@ interface ImageFile {
   content: string;
 }
 
-interface DataItem extends Omit<FormFields, FORM_FIELDS_LABELS.IMAGE> {
+interface DataItem extends Omit<FormType, FORM_FIELDS_LABELS.IMAGE> {
   [FORM_FIELDS_LABELS.IMAGE]: ImageFile;
 }
 

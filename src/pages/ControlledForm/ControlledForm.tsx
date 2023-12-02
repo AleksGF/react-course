@@ -6,26 +6,17 @@ import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { addFormData } from '@/store/formDataSlice';
 import {
   FORM_FIELDS_LABELS,
-  type FormFields,
+  type FormType,
   formSchema,
+  INPUTS,
 } from '@/constants/formSchema';
 import PageTittle from '@/components/PageTittle/PageTittle';
-import ControlledInput, {
-  type InputType,
-} from '@/components/FormFields/ControlledInput/ControlledInput';
+import ControlledInput from '@/components/FormFields/ControlledInput/ControlledInput';
 import ControlledRadio from '@/components/FormFields/ControlledRadio/ControlledRadio';
 import ControlledSelect from '@/components/FormFields/ControlledSelect/ControlledSelect';
 import { GENDERS } from '@/constants/constants';
 import { FormWrapper, StyledForm } from '@/components/FormFields/Wrappers';
 import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
-
-const INPUTS: { inputId: `${FORM_FIELDS_LABELS}`; type: InputType }[] = [
-  { inputId: FORM_FIELDS_LABELS.NAME, type: 'text' },
-  { inputId: FORM_FIELDS_LABELS.AGE, type: 'number' },
-  { inputId: FORM_FIELDS_LABELS.EMAIL, type: 'email' },
-  { inputId: FORM_FIELDS_LABELS.PASSWORD, type: 'password' },
-  { inputId: FORM_FIELDS_LABELS.PASSWORD_CONFIRM, type: 'password' },
-];
 
 const ControlledForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -41,14 +32,14 @@ const ControlledForm: FC = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm<FormFields>({
+  } = useForm<FormType>({
     resolver: yupResolver(formSchema),
     mode: 'onTouched',
   });
 
   const memorizedRegister = useCallback(register, [register]);
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
+  const onSubmit: SubmitHandler<FormType> = (data) => {
     const file = (data[FORM_FIELDS_LABELS.IMAGE] as FileList)[0];
     const reader = new FileReader();
 
