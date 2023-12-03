@@ -8,12 +8,14 @@ interface UncontrolledRadioProps {
   values: string[];
   inputId: `${FORM_FIELDS_LABELS}`;
   error?: string;
+  errorHandler: (fieldId: `${FORM_FIELDS_LABELS}`) => void;
 }
 
 const UncontrolledRadio: FC<UncontrolledRadioProps> = ({
   values,
   inputId,
   error,
+  errorHandler,
 }) => {
   return (
     <Wrapper $minHeight={'5rem'}>
@@ -22,7 +24,15 @@ const UncontrolledRadio: FC<UncontrolledRadioProps> = ({
         {values.map((value) => (
           <div key={value}>
             <label htmlFor={value}>{getCapitalized(value)}</label>
-            <input type={'radio'} id={value} name={inputId} value={value} />
+            <input
+              type={'radio'}
+              id={value}
+              name={inputId}
+              value={value}
+              onChange={() => {
+                errorHandler(inputId);
+              }}
+            />
           </div>
         ))}
       </FieldsetWrapper>

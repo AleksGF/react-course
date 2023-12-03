@@ -1,4 +1,10 @@
-import React, { type FC, type FormEvent, useRef, useState } from 'react';
+import React, {
+  type FC,
+  type FormEvent,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import { FormWrapper, StyledForm } from '@/components/FormFields/Wrappers';
 import PageTittle from '@/components/PageTittle/PageTittle';
 import {
@@ -27,6 +33,18 @@ const UncontrolledForm: FC = () => {
   );
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+
+  const errorHandler = useCallback(
+    (fieldId: `${FORM_FIELDS_LABELS}`) => {
+      if (!fieldErrors[fieldId]) return;
+
+      setFieldErrors((prevFieldErrors) => ({
+        ...prevFieldErrors,
+        [fieldId]: '',
+      }));
+    },
+    [fieldErrors],
+  );
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,6 +124,7 @@ const UncontrolledForm: FC = () => {
             type={item.type}
             inputId={item.inputId}
             error={fieldErrors[item.inputId]}
+            errorHandler={errorHandler}
             key={ind}
           />
         ))}
@@ -113,21 +132,25 @@ const UncontrolledForm: FC = () => {
           values={GENDERS}
           inputId={FORM_FIELDS_LABELS.GENDER}
           error={fieldErrors[FORM_FIELDS_LABELS.GENDER]}
+          errorHandler={errorHandler}
         />
         <UncontrolledSelect
           options={COUNTRIES.current}
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           error={fieldErrors[FORM_FIELDS_LABELS.COUNTRY]}
+          errorHandler={errorHandler}
         />
         <UncontrolledInput
           type={'file'}
           inputId={FORM_FIELDS_LABELS.IMAGE}
           error={fieldErrors[FORM_FIELDS_LABELS.IMAGE]}
+          errorHandler={errorHandler}
         />
         <UncontrolledInput
           type={'checkbox'}
           inputId={FORM_FIELDS_LABELS.ACCEPT}
           error={fieldErrors[FORM_FIELDS_LABELS.ACCEPT]}
+          errorHandler={errorHandler}
         />
         <StyledSubmitBtn type={'submit'}>{'Submit form'}</StyledSubmitBtn>
       </StyledForm>

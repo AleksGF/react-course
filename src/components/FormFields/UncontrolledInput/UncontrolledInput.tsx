@@ -7,10 +7,11 @@ interface UncontrolledInputProps {
   type: InputType;
   inputId: `${FORM_FIELDS_LABELS}`;
   error?: string;
+  errorHandler: (fieldId: `${FORM_FIELDS_LABELS}`) => void;
 }
 
 const UncontrolledInput: FC<UncontrolledInputProps> = memo(
-  ({ type, inputId, error }) => {
+  ({ type, inputId, error, errorHandler }) => {
     return (
       <Wrapper>
         <FieldWrapper>
@@ -19,6 +20,9 @@ const UncontrolledInput: FC<UncontrolledInputProps> = memo(
             type={type}
             id={inputId}
             name={inputId}
+            onChange={() => {
+              errorHandler(inputId);
+            }}
             autoComplete={type === 'password' ? 'new-password' : inputId}
           />
         </FieldWrapper>
