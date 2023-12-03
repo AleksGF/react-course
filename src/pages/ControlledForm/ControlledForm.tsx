@@ -10,7 +10,7 @@ import {
   INPUTS,
 } from '@/constants/formSchema';
 import PageTittle from '@/components/PageTittle/PageTittle';
-import ControlledInput from '@/components/FormFields/ControlledInput/ControlledInput';
+import InputField from '@/components/FormFields/InputField/InputField';
 import ControlledRadio from '@/components/FormFields/ControlledRadio/ControlledRadio';
 import ControlledSelect from '@/components/FormFields/ControlledSelect/ControlledSelect';
 import { GENDERS } from '@/constants/constants';
@@ -52,7 +52,7 @@ const ControlledForm: FC = () => {
         noValidate={true}
       >
         {INPUTS.map((item, ind) => (
-          <ControlledInput
+          <InputField
             type={item.type}
             inputId={item.inputId}
             register={memorizedRegister}
@@ -74,13 +74,13 @@ const ControlledForm: FC = () => {
           setValue={setValue}
           watch={watch}
         />
-        <ControlledInput
+        <InputField
           type={'file'}
           inputId={FORM_FIELDS_LABELS.IMAGE}
           register={memorizedRegister}
           error={errors[FORM_FIELDS_LABELS.IMAGE]?.message}
         />
-        <ControlledInput
+        <InputField
           type={'checkbox'}
           inputId={FORM_FIELDS_LABELS.ACCEPT}
           register={memorizedRegister}

@@ -5,18 +5,30 @@ import {
   type FormType,
   type InputType,
 } from '@/constants/formSchema';
-import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 import { FieldWrapper, Wrapper } from '@/components/FormFields/Wrappers';
+import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 
-interface ControlledInputProps {
+interface InputFieldProps {
   type: InputType;
   inputId: `${FORM_FIELDS_LABELS}`;
-  register: UseFormRegister<FormType>;
   error?: string;
+  register?: UseFormRegister<FormType>;
+  errorHandler?: (fieldId: `${FORM_FIELDS_LABELS}`) => void;
 }
 
-const ControlledInput: FC<ControlledInputProps> = memo(
-  ({ type, inputId, register, error }) => {
+const InputField: FC<InputFieldProps> = memo(
+  ({ type, inputId, error, register, errorHandler }) => {
+    const restProps = register
+      ? register(inputId)
+      : {
+          name: inputId,
+          onChange: errorHandler
+            ? () => {
+                errorHandler(inputId);
+              }
+            : undefined,
+        };
+
     return (
       <Wrapper>
         <FieldWrapper>
@@ -25,7 +37,7 @@ const ControlledInput: FC<ControlledInputProps> = memo(
             type={type}
             id={inputId}
             autoComplete={type === 'password' ? 'new-password' : inputId}
-            {...register(inputId)}
+            {...restProps}
           />
         </FieldWrapper>
         <ErrorMessage>{error ?? ''}</ErrorMessage>
@@ -34,4 +46,4 @@ const ControlledInput: FC<ControlledInputProps> = memo(
   },
 );
 
-export default ControlledInput;
+export default InputField;

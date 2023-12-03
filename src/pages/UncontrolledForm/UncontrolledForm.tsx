@@ -14,7 +14,7 @@ import {
   type FormType,
   INPUTS,
 } from '@/constants/formSchema';
-import UncontrolledInput from '@/components/FormFields/UncontrolledInput/UncontrolledInput';
+import InputField from '@/components/FormFields/InputField/InputField';
 import UncontrolledRadio from '@/components/FormFields/UncontrolledRadio/UncontrolledRadio';
 import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
 import UncontrolledSelect from '@/components/FormFields/UncontrolledSelect/UncontrolledSelect';
@@ -83,7 +83,7 @@ const UncontrolledForm: FC = () => {
         noValidate={true}
       >
         {INPUTS.map((item, ind) => (
-          <UncontrolledInput
+          <InputField
             type={item.type}
             inputId={item.inputId}
             error={fieldErrors[item.inputId]}
@@ -103,13 +103,13 @@ const UncontrolledForm: FC = () => {
           error={fieldErrors[FORM_FIELDS_LABELS.COUNTRY]}
           errorHandler={errorHandler}
         />
-        <UncontrolledInput
+        <InputField
           type={'file'}
           inputId={FORM_FIELDS_LABELS.IMAGE}
           error={fieldErrors[FORM_FIELDS_LABELS.IMAGE]}
           errorHandler={errorHandler}
         />
-        <UncontrolledInput
+        <InputField
           type={'checkbox'}
           inputId={FORM_FIELDS_LABELS.ACCEPT}
           error={fieldErrors[FORM_FIELDS_LABELS.ACCEPT]}
