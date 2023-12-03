@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { addFormData } from '@/store/formDataSlice';
 import {
   FORM_FIELDS_LABELS,
   type FormType,
@@ -17,6 +16,7 @@ import ControlledSelect from '@/components/FormFields/ControlledSelect/Controlle
 import { GENDERS } from '@/constants/constants';
 import { FormWrapper, StyledForm } from '@/components/FormFields/Wrappers';
 import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
+import { handleDataDispatch } from '@/helpers/handleDataDispatch';
 
 const ControlledForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -39,34 +39,8 @@ const ControlledForm: FC = () => {
 
   const memorizedRegister = useCallback(register, [register]);
 
-  const onSubmit: SubmitHandler<FormType> = (data) => {
-    const file = (data[FORM_FIELDS_LABELS.IMAGE] as FileList)[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      if (!reader.result)
-        throw new Error(`Error while read file ${file?.name || ''}`);
-
-      dispatch(
-        addFormData({
-          ...data,
-          [FORM_FIELDS_LABELS.IMAGE]: {
-            name: file.name,
-            content: reader.result as string,
-          },
-        }),
-      );
-
-      reset();
-      navigate('/');
-    };
-
-    reader.onerror = () => {
-      throw new Error(`Error while read file ${file?.name || ''}`);
-    };
-
-    reader.readAsDataURL(file);
-  };
+  const onSubmit: SubmitHandler<FormType> = (data) =>
+    handleDataDispatch(dispatch, navigate, reset)(data);
 
   return (
     <FormWrapper>

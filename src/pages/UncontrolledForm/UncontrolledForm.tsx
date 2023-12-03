@@ -5,34 +5,33 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
 import { FormWrapper, StyledForm } from '@/components/FormFields/Wrappers';
 import PageTittle from '@/components/PageTittle/PageTittle';
 import {
   FORM_FIELDS_LABELS,
-  formSchema,
-  FormType,
+  type FormType,
   INPUTS,
 } from '@/constants/formSchema';
 import UncontrolledInput from '@/components/FormFields/UncontrolledInput/UncontrolledInput';
-import { GENDERS } from '@/constants/constants';
 import UncontrolledRadio from '@/components/FormFields/UncontrolledRadio/UncontrolledRadio';
 import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { useNavigate } from 'react-router-dom';
 import UncontrolledSelect from '@/components/FormFields/UncontrolledSelect/UncontrolledSelect';
-import { ValidationError } from 'yup';
-import { addFormData } from '@/store/formDataSlice';
+import { handleValidation } from '@/helpers/handleValidation';
+import { GENDERS } from '@/constants/constants';
 
 type FieldErrors = Partial<Record<keyof FormType, string>>;
 
 const UncontrolledForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+
   const COUNTRIES = useRef<string[]>(
     useAppSelector((state) => state.app.countries),
   );
-
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   const errorHandler = useCallback(
     (fieldId: `${FORM_FIELDS_LABELS}`) => {
@@ -68,46 +67,7 @@ const UncontrolledForm: FC = () => {
       }
     });
 
-    formSchema
-      .validate(dataObj, { abortEarly: false })
-      .then((data) => {
-        const file = (data[FORM_FIELDS_LABELS.IMAGE] as FileList)[0];
-
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-          if (!reader.result)
-            throw new Error(`Error while read file ${file?.name || ''}`);
-
-          dispatch(
-            addFormData({
-              ...data,
-              [FORM_FIELDS_LABELS.IMAGE]: {
-                name: file.name,
-                content: reader.result as string,
-              },
-            }),
-          );
-
-          navigate('/');
-        };
-
-        reader.onerror = () => {
-          throw new Error(`Error while read file ${file?.name || ''}`);
-        };
-
-        reader.readAsDataURL(file);
-      })
-      .catch((error) => {
-        const errors: FieldErrors = {};
-
-        (error.inner as ValidationError[]).forEach((errorItem) => {
-          if (errorItem.path)
-            errors[errorItem.path as keyof FormType] = errorItem.message;
-        });
-
-        setFieldErrors(errors);
-      });
+    handleValidation(dataObj, setFieldErrors, dispatch, navigate);
   };
 
   return (
