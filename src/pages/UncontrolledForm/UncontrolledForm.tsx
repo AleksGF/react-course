@@ -70,6 +70,9 @@ const UncontrolledForm: FC = () => {
     handleValidation(dataObj, setFieldErrors, dispatch, navigate);
   };
 
+  const isBtnDisabled = !!Object.values(fieldErrors).filter((value) => !!value)
+    .length;
+
   return (
     <FormWrapper>
       <PageTittle />
@@ -112,7 +115,9 @@ const UncontrolledForm: FC = () => {
           error={fieldErrors[FORM_FIELDS_LABELS.ACCEPT]}
           errorHandler={errorHandler}
         />
-        <StyledSubmitBtn type={'submit'}>{'Submit form'}</StyledSubmitBtn>
+        <StyledSubmitBtn type={'submit'} disabled={isBtnDisabled}>
+          {'Submit form'}
+        </StyledSubmitBtn>
       </StyledForm>
     </FormWrapper>
   );
