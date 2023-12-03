@@ -59,7 +59,7 @@ const UncontrolledForm: FC = () => {
           break;
 
         case FORM_FIELDS_LABELS.IMAGE:
-          dataObj[key] = [value];
+          dataObj[key] = [value as File];
           break;
 
         default:
