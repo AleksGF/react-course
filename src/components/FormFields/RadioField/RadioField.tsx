@@ -5,15 +5,27 @@ import { ErrorMessage } from '@/components/FormFields/ErrorMessage';
 import { FieldsetWrapper, Wrapper } from '@/components/FormFields/Wrappers';
 import { getCapitalized } from '@/helpers/getCapitalized';
 
-interface ControlledRadioProps {
+interface RadioFieldProps {
   values: string[];
   inputId: `${FORM_FIELDS_LABELS}`;
-  register: UseFormRegister<FormType>;
   error?: string;
+  register?: UseFormRegister<FormType>;
+  errorHandler?: (fieldId: `${FORM_FIELDS_LABELS}`) => void;
 }
 
-const ControlledRadio: FC<ControlledRadioProps> = memo(
-  ({ values, inputId, register, error }) => {
+const RadioField: FC<RadioFieldProps> = memo(
+  ({ values, inputId, error, register, errorHandler }) => {
+    const restProps = register
+      ? register(inputId)
+      : {
+          name: inputId,
+          onChange: errorHandler
+            ? () => {
+                errorHandler(inputId);
+              }
+            : undefined,
+        };
+
     return (
       <Wrapper $minHeight={'5rem'}>
         <FieldsetWrapper>
@@ -21,12 +33,7 @@ const ControlledRadio: FC<ControlledRadioProps> = memo(
           {values.map((value) => (
             <div key={value}>
               <label htmlFor={value}>{getCapitalized(value)}</label>
-              <input
-                type={'radio'}
-                id={value}
-                value={value}
-                {...register(inputId)}
-              />
+              <input type={'radio'} id={value} value={value} {...restProps} />
             </div>
           ))}
         </FieldsetWrapper>
@@ -36,4 +43,4 @@ const ControlledRadio: FC<ControlledRadioProps> = memo(
   },
 );
 
-export default ControlledRadio;
+export default RadioField;

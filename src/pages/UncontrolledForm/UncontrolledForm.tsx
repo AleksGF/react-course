@@ -15,9 +15,9 @@ import {
   INPUTS,
 } from '@/constants/formSchema';
 import InputField from '@/components/FormFields/InputField/InputField';
-import UncontrolledRadio from '@/components/FormFields/UncontrolledRadio/UncontrolledRadio';
+import RadioField from '@/components/FormFields/RadioField/RadioField';
+import SelectField from '@/components/FormFields/SelectField/SelectField';
 import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
-import UncontrolledSelect from '@/components/FormFields/UncontrolledSelect/UncontrolledSelect';
 import { handleValidation } from '@/helpers/handleValidation';
 import { GENDERS } from '@/constants/constants';
 
@@ -91,13 +91,13 @@ const UncontrolledForm: FC = () => {
             key={ind}
           />
         ))}
-        <UncontrolledRadio
+        <RadioField
           values={GENDERS}
           inputId={FORM_FIELDS_LABELS.GENDER}
           error={fieldErrors[FORM_FIELDS_LABELS.GENDER]}
           errorHandler={errorHandler}
         />
-        <UncontrolledSelect
+        <SelectField
           options={COUNTRIES.current}
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           error={fieldErrors[FORM_FIELDS_LABELS.COUNTRY]}

@@ -11,8 +11,8 @@ import {
 } from '@/constants/formSchema';
 import PageTittle from '@/components/PageTittle/PageTittle';
 import InputField from '@/components/FormFields/InputField/InputField';
-import ControlledRadio from '@/components/FormFields/ControlledRadio/ControlledRadio';
-import ControlledSelect from '@/components/FormFields/ControlledSelect/ControlledSelect';
+import RadioField from '@/components/FormFields/RadioField/RadioField';
+import SelectField from '@/components/FormFields/SelectField/SelectField';
 import { GENDERS } from '@/constants/constants';
 import { FormWrapper, StyledForm } from '@/components/FormFields/Wrappers';
 import { StyledSubmitBtn } from '@/components/FormFields/StyledSubmitBtn';
@@ -60,13 +60,13 @@ const ControlledForm: FC = () => {
             key={ind}
           />
         ))}
-        <ControlledRadio
+        <RadioField
           values={GENDERS}
           inputId={FORM_FIELDS_LABELS.GENDER}
           register={memorizedRegister}
           error={errors[FORM_FIELDS_LABELS.GENDER]?.message}
         />
-        <ControlledSelect
+        <SelectField
           options={COUNTRIES.current}
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           register={memorizedRegister}
