@@ -21,9 +21,6 @@ import { handleDataDispatch } from '@/helpers/handleDataDispatch';
 const ControlledForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const COUNTRIES = useRef<string[]>(
-    useAppSelector((state) => state.app.countries),
-  );
 
   const {
     setValue,
@@ -67,7 +64,6 @@ const ControlledForm: FC = () => {
           error={errors[FORM_FIELDS_LABELS.GENDER]?.message}
         />
         <SelectField
-          options={COUNTRIES.current}
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           register={memorizedRegister}
           error={errors[FORM_FIELDS_LABELS.COUNTRY]?.message}

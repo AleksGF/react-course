@@ -1,9 +1,9 @@
 import React, { type FC, ReactElement } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '@/constants/styles';
+import { useAppSelector } from '@/hooks/hooks';
 
 interface OptionsListProps {
-  options: string[];
   optionsToShowCount: number;
   searchValue: string;
   onSelect: (value: string) => void;
@@ -29,11 +29,12 @@ const StyledItem = styled.li`
 `;
 
 const OptionsList: FC<OptionsListProps> = ({
-  options,
   optionsToShowCount,
   searchValue,
   onSelect,
 }) => {
+  const options = useAppSelector((state) => state.app.countries);
+
   return (
     <StyledWrapper>
       {...options.reduce((acc, option, ind) => {

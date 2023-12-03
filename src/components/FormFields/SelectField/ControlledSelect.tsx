@@ -11,7 +11,6 @@ const OPTIONS_TO_SHOW_COUNT = 12;
 const SELECT_ID = 'select_field_id';
 
 interface ControlledSelectProps {
-  options: string[];
   fieldId: keyof FormType;
   register: UseFormRegister<FormType>;
   setValue: UseFormSetValue<FormType>;
@@ -19,7 +18,6 @@ interface ControlledSelectProps {
 }
 
 const ControlledSelect: FC<ControlledSelectProps> = ({
-  options,
   fieldId,
   register,
   setValue,
@@ -38,7 +36,6 @@ const ControlledSelect: FC<ControlledSelectProps> = ({
 
   return (
     <SelectView
-      options={options}
       fieldId={fieldId}
       selectId={SELECT_ID}
       isOptionsShown={isOptionsShown}

@@ -29,10 +29,6 @@ const UncontrolledForm: FC = () => {
 
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
-  const COUNTRIES = useRef<string[]>(
-    useAppSelector((state) => state.app.countries),
-  );
-
   const errorHandler = useCallback(
     (fieldId: `${FORM_FIELDS_LABELS}`) => {
       if (!fieldErrors[fieldId]) return;
@@ -98,7 +94,6 @@ const UncontrolledForm: FC = () => {
           errorHandler={errorHandler}
         />
         <SelectField
-          options={COUNTRIES.current}
           selectId={FORM_FIELDS_LABELS.COUNTRY}
           error={fieldErrors[FORM_FIELDS_LABELS.COUNTRY]}
           errorHandler={errorHandler}

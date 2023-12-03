@@ -11,7 +11,6 @@ import type {
 import { FORM_FIELDS_LABELS, type FormType } from '@/constants/formSchema';
 
 interface SelectFieldProps {
-  options: string[];
   selectId: keyof FormType;
   error?: string;
   register?: UseFormRegister<FormType>;
@@ -21,7 +20,6 @@ interface SelectFieldProps {
 }
 
 const SelectField: FC<SelectFieldProps> = ({
-  options,
   selectId,
   error,
   register,
@@ -35,7 +33,6 @@ const SelectField: FC<SelectFieldProps> = ({
         <label htmlFor={selectId}>{selectId}</label>
         {register && setValue && watch ? (
           <ControlledSelect
-            options={options}
             fieldId={selectId}
             register={register}
             setValue={setValue}
@@ -43,11 +40,7 @@ const SelectField: FC<SelectFieldProps> = ({
           />
         ) : null}
         {errorHandler ? (
-          <UncontrolledSelect
-            options={options}
-            fieldId={selectId}
-            errorHandler={errorHandler}
-          />
+          <UncontrolledSelect fieldId={selectId} errorHandler={errorHandler} />
         ) : null}
       </FieldWrapper>
       <ErrorMessage>{error ?? ''}</ErrorMessage>

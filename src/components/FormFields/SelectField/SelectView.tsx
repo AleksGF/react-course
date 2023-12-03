@@ -17,7 +17,6 @@ import type { UseFormRegister } from 'react-hook-form';
 import { type FormType } from '@/constants/formSchema';
 
 interface ControlledSelectProps {
-  options: string[];
   fieldId: keyof FormType;
   selectId: string;
   isOptionsShown: boolean;
@@ -31,7 +30,6 @@ interface ControlledSelectProps {
 }
 
 const SelectView: FC<ControlledSelectProps> = ({
-  options,
   fieldId,
   selectId,
   isOptionsShown,
@@ -89,7 +87,6 @@ const SelectView: FC<ControlledSelectProps> = ({
       </StyledSearchWrapper>
       {isOptionsShown && (
         <OptionsList
-          options={options}
           optionsToShowCount={optionsToShowCount}
           searchValue={searchValue}
           onSelect={onSelect}
