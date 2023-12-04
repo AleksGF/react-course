@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: mintcream;
+}
+
+#root {
+  margin: auto;
+  padding: 1rem;
+  max-width: 1024px;
+}
+
+main {
+  margin: auto;
+  max-width: max-content;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
